@@ -6,10 +6,30 @@ using System.Threading.Tasks;
 
 namespace RandomGame
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
+            Starting();
+            Body();
         }
+
+        static void Starting()
+        {
+            save = new Save();
+        }
+
+        static void Body()
+        {
+
+        }
+
+        static void Loop()
+        {
+            
+        }
+
+        public static Save save;
+
     }
 }
