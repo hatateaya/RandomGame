@@ -10,10 +10,9 @@ namespace RandomGame
     {
         MensastatoType type;
         int value;
-
         public Mensasato(MensastatoType mensasatoType)
         {
-
+            this.type = mensasatoType;
         }
     }
     enum MensastatoType
@@ -40,7 +39,6 @@ namespace RandomGame
         S,
         M,
         CD,
-
     }
     // maybe ICD-11?
 }

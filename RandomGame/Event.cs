@@ -6,72 +6,34 @@ using System.Threading.Tasks;
 
 namespace RandomGame
 {
-    class Event
-    {
-        List<Condition> nessesaryConditions;
-        List<Factor> probabilityFactors;
-        List<Influence> influences;
-        List<Factor> influenceFactors;
-        List<Selection> selections;
-        string text;
-    }
     class EventApplier
     {
-        public void Try()
+        List<string> ids;
+        public void LoopOn()
         {
 
         }
-        private void TryLoad()
+        public void ReloadIds()
         {
 
         }
-        private void TryEvent(Event thisEvent)
+        public EventApplier() { 
+        
+        }
+    }
+    class EventHelper
+    {
+        public void LoadEvents()
         {
 
         }
-        private void LoadEvent()
+        void LoadEvent()
         {
 
         }
-    }
-
-    class Selection
-    {
-
-    }
-    class Condition
-    {
-        public ConditionType type { get; set; }
-        public string a { get; set; }
-        public string b { get; set; }
-    }
-    class Influence
-    {
-        public ConditionType type { get; set; }
-        public string a { get; set; }
-        public string b { get; set; }
-    }
-    
-    class Factor
-    {
-        public string type { get; set; }
-        public double factor { get; set; }
-    }
-    enum ConditionType
-    {
-        Equal,
-        NotEqual,
-    }
-
-    class Value
-    {
-        ValueType valueType { get; set; }
-        string value { get; set; }
-    }
-
-    enum ValueType
-    {
-        FromSave,
-        String,
+        Event GetEvent(Event thisEvent)
+        {
+            return new Event();
+        }
     }
 }

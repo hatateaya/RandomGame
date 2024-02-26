@@ -26,16 +26,4 @@ namespace RandomGame
         RandomNormal,
         RandomYINANS
     }
-
-    class EstajhoLoop
-    {
-
-        public Loop()
-        {
-            List<object> list = PairTool.GetList("estajho");
-            foreach (object item in list) {
-                ((Estajho)item).eventApplier.Try();
-            }
-        }
-    }
 }

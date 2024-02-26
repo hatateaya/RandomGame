@@ -15,12 +15,12 @@ namespace RandomGame
         public Save()
         {
             pairs.Add(".list", new List<string>());
-            playerid=PairTool.New("estajho", new Estajho(EstajhoNewMode.RandomNormal));
-            actorid = PairTool.New("estajho", new Estajho(EstajhoNewMode.RandomYINANS));
+            playerid= SaveTool.New("estajho", new Estajho(EstajhoNewMode.RandomNormal));
+            actorid = SaveTool.New("estajho", new Estajho(EstajhoNewMode.RandomYINANS));
         }
     }
 
-    static class PairTool
+    static class SaveTool
     {
        public static string New(string title,object thing)
         {

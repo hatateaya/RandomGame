@@ -13,23 +13,29 @@ namespace RandomGame
             Starting();
             Body();
         }
-
         static void Starting()
         {
             save = new Save();
         }
-
         static void Body()
         {
 
         }
-
-        static void Loop()
-        {
-            
-        }
-
         public static Save save;
+    }
 
+    static class Command
+    {
+        static void Run(string command)
+        {
+            command= command.ToLower();
+            switch (command)
+            {
+                case "":
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

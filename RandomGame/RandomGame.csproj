@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Estajho.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="EventModel.cs" />
+    <Compile Include="LogicLoop.cs" />
     <Compile Include="Mensasato.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
