@@ -10,7 +10,7 @@ namespace RandomGame
     {
         public void EstajhoLoop()
         {
-            List<object> list = SaveTool.GetList("estajho");
+            List<object> list = Program.save.GetList("estajho");
             foreach (object item in list)
             {
                 ((Estajho)item).eventApplier.LoopOn();

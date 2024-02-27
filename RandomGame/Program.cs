@@ -10,10 +10,11 @@ namespace RandomGame
     {
         static void Main(string[] args)
         {
-            Starting();
+            UnitTests.Perform();
+            Initialize();
             Body();
         }
-        static void Starting()
+        static void Initialize()
         {
             save = new Save();
         }

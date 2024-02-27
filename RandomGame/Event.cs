@@ -21,19 +21,11 @@ namespace RandomGame
         
         }
     }
-    class EventHelper
+    static class EventHelper
     {
-        public void LoadEvents()
+        public static void LoadEvents()
         {
 
-        }
-        void LoadEvent()
-        {
-
-        }
-        Event GetEvent(Event thisEvent)
-        {
-            return new Event();
         }
     }
 }

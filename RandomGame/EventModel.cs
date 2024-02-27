@@ -3,20 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.IO;
+using System.Diagnostics;
+using System.Text.Json.Serialization;
 
 namespace RandomGame
 {
     class Event
     {
-        EventType type;
-        EventInterval interval;
-        List<Condition> conditions;
-        List<Effect> effects;
-        List<Factor> factors;
-        string id;
-        string name;
-        string description;
-        List<Selection> selections;
+        public EventType type { get; set; }
+        public EventInterval interval { get; set; }
+        public List<Condition> conditions { get; set; }
+        public List<Effect> effects { get; set; }
+        public List<Factor> factors { get; set; }
+        public string id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public List<Selection> selections { get; set; }
+        public static Event FromJsonFile(string fileName)
+        {
+            string jsonString = File.ReadAllText(fileName);
+            JsonSerializerOptions options = new JsonSerializerOptions();
+            options.Converters.Add(new JsonStringEnumConverter());
+            Event myEvent = JsonSerializer.Deserialize<Event>(jsonString,options);
+            return myEvent;
+        }
     }
     enum EventType
     {
@@ -33,13 +45,13 @@ namespace RandomGame
     }
     class Selection
     {
-        Condition condition;
-        string text;
-        Effect effect;
+        public List<Condition> conditions { get; set; }
+        public string text { get; set; }
+        public List<Effect> effects { get; set; }
     }
     class Condition
     {
-        public ConditionType type { get; set; }
+        public ConditionType type { get; set; } = ConditionType.True;
         public string a { get; set; }
         public string b { get; set; }
     }
@@ -52,23 +64,19 @@ namespace RandomGame
         LargerThan,
         SmallerThan,
     }
-    interface Effect{}
-    class SaveSetEffect
+    class Effect
     {
+        public EffectType type { get; set; }
         public string id { get; set; }
         public Value value { get; set; }
+        public string message { get; set; }
     }
-    class DisplayMessageEffect
+    enum EffectType
     {
-        public string value { get; set; }
-    }
-    class TriggerEventEffect
-    {
-        public string id { get; set; }
-    }
-    class CommandEffect
-    {
-        public string command { get; set; }
+        SaveSet,
+        DisplayMessage,
+        TriggerEvent,
+        TriggerCommand,
     }
     class Factor
     {
@@ -79,16 +87,16 @@ namespace RandomGame
     }
     enum FactorType
     {
-        If,
-        Factor,
+        Static,
+        Dynamic,
     }
     class Value
     {
-        ValueType valueType { get; set; }
-        bool isStatic { get; set; }
-        string valueStatic { get; set; }
-        Value valueValue { get; set; }
-        Factor factor { get; set; }
+        public ValueType valueType { get; set; }
+        public bool isStatic { get; set; }
+        public string valueStatic { get; set; }
+        public Value valueValue { get; set; }
+        public Factor factor { get; set; }
 
     }
     enum ValueType
