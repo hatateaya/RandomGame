@@ -27,7 +27,7 @@ namespace RandomGame
 
     static class Command
     {
-        static void Run(string command)
+        public static void Trigger(string command)
         {
             command= command.ToLower();
             switch (command)
