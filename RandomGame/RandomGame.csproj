@@ -58,14 +58,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gui\EventWindow.cs" />
     <Compile Include="Gui\Gui.cs" />
+    <Compile Include="Gui\MainWindow.cs" />
     <Compile Include="Gui\StartingWindow.cs" />
+    <Compile Include="Gui\TalkWindow.cs" />
+    <Compile Include="Gui\ViewWindow.cs" />
     <Compile Include="Logic\Command.cs" />
     <Compile Include="Logic\Estajho.cs" />
     <Compile Include="Logic\Event.cs" />
     <Compile Include="Logic\EventModel.cs" />
     <Compile Include="Logic\Logic.cs" />
     <Compile Include="Logic\Mensasato.cs" />
+    <Compile Include="Logic\Time.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Logic\Save.cs" />
     <Compile Include="Tools.cs" />

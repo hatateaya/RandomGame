@@ -15,7 +15,7 @@ namespace RandomGame
         static void Main(string[] args)
         {
             UnitTests.Perform();
-            Logic.Initialize();
+
             Gui.Begin();
             
             Application.Shutdown();

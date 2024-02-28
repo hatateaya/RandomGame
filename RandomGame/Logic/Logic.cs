@@ -8,9 +8,14 @@ namespace RandomGame
 {
     static class Logic
     {
-        public static void Initialize()
+
+        public static void NewSave()
         {
             Program.save=new Save();
+        }
+        public static void LoadSave(string fileName)
+        {
+            Program.save = new Save();
         }
         public static void EstajhoLoop()
         {

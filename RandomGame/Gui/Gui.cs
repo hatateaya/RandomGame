@@ -17,7 +17,7 @@ namespace RandomGame
             Colors.Base.Normal = Application.Driver.MakeAttribute(Color.White, Color.Black); // Magic
 
             var menuBar = new MenuBar(new MenuBarItem[] { new MenuBarItem("_Help", new MenuItem[] { new MenuItem("_About", "", () => { MessageBox.Query("About", "A Random Game", "_OK"); }) }) });
-            var window = new StartingWindow();
+            StartingWindow window = new StartingWindow();
 
             // Application.Resized += (Application.ResizedEventArgs args) => { Tools.SetTimeout(1000, () => { Application.Current.SetWidth(80, out _); Application.Current.SetHeight(24, out _); }); };
             

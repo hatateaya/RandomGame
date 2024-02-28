@@ -12,12 +12,14 @@ namespace RandomGame
         public Dictionary<string, object> pairs = new Dictionary<string, object>();
         string playerId;
         string actorId;
+        public Time time;
 
         public Save()
         {
             pairs.Add(".list", new List<string>());
             playerId = New("estajho", new Estajho(EstajhoNewMode.RandomNormal));
             actorId = New("estajho", new Estajho(EstajhoNewMode.RandomYINANS));
+            time = new Time();
         }
         public string New(string title, object thing)
         {
