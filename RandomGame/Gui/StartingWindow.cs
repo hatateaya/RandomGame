@@ -23,7 +23,7 @@ namespace RandomGame
  |_|_\__,_|_||_\__,_\___/_|_|_\___\__,_|_|_|_\___|
 ",
                 X=Pos.Center(),
-                Y=Pos.Function(NonAutoCenter),
+                Y=Gui.AutoCenter(this),
                 // The Pos is dynamic
             };
 
@@ -83,14 +83,6 @@ _/ (_(_/_
             };
 
             this.Add(logoLabel, newGameButton, loadGameButton, exitButton, smallLogoLabel);
-        }
-        int NonAutoCenter()
-        {
-            //Non-auto Center
-            int applicationHeight;
-            Application.Top.GetCurrentHeight(out applicationHeight);
-            return (applicationHeight - 20) / 2;
-            // Im amazed by this library,,,
         }
         void IntoMain()
         { 
