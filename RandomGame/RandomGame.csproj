@@ -33,29 +33,47 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NStack, Version=1.1.1.0, Culture=neutral, PublicKeyToken=b1bc8ab4b95b4a4a, processorArchitecture=MSIL">
+      <HintPath>..\packages\NStack.Core.1.1.1\lib\netstandard2.0\NStack.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.CodeDom, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.CodeDom.8.0.0\lib\net462\System.CodeDom.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
     <Reference Include="System.Text.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Terminal.Gui, Version=1.15.1.0, Culture=neutral, PublicKeyToken=e2bd4b710393a695, processorArchitecture=MSIL">
+      <HintPath>..\packages\Terminal.Gui.1.15.1\lib\net472\Terminal.Gui.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Estajho.cs" />
-    <Compile Include="Event.cs" />
-    <Compile Include="EventModel.cs" />
-    <Compile Include="LogicLoop.cs" />
-    <Compile Include="Mensasato.cs" />
+    <Compile Include="Gui\Gui.cs" />
+    <Compile Include="Gui\StartingWindow.cs" />
+    <Compile Include="Logic\Command.cs" />
+    <Compile Include="Logic\Estajho.cs" />
+    <Compile Include="Logic\Event.cs" />
+    <Compile Include="Logic\EventModel.cs" />
+    <Compile Include="Logic\Logic.cs" />
+    <Compile Include="Logic\Mensasato.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Save.cs" />
+    <Compile Include="Logic\Save.cs" />
+    <Compile Include="Tools.cs" />
     <Compile Include="UnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="tekstoporevoluigo.txt" />

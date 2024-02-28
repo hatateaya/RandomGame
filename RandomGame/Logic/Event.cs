@@ -8,7 +8,7 @@ namespace RandomGame
 {
     class EventApplier
     {
-        List<string> ids;
+        List<string> Ids;
         public void LoopOn()
         {
 

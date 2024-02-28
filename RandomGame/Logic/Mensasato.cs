@@ -8,11 +8,11 @@ namespace RandomGame
 {
     class Mensasato
     {
-        MensastatoType type;
-        int value;
+        MensastatoType Type;
+        int Value;
         public Mensasato(MensastatoType mensasatoType)
         {
-            this.type = mensasatoType;
+            this.Type = mensasatoType;
         }
     }
     enum MensastatoType

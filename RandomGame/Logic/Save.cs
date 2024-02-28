@@ -10,14 +10,14 @@ namespace RandomGame
     class Save
     {
         public Dictionary<string, object> pairs = new Dictionary<string, object>();
-        string playerid;
-        string actorid;
+        string playerId;
+        string actorId;
 
         public Save()
         {
             pairs.Add(".list", new List<string>());
-            playerid = New("estajho", new Estajho(EstajhoNewMode.RandomNormal));
-            actorid = New("estajho", new Estajho(EstajhoNewMode.RandomYINANS));
+            playerId = New("estajho", new Estajho(EstajhoNewMode.RandomNormal));
+            actorId = New("estajho", new Estajho(EstajhoNewMode.RandomYINANS));
         }
         public string New(string title, object thing)
         {
@@ -27,26 +27,26 @@ namespace RandomGame
                 pairs.Add(title + ".list", new List<string>());
                 pairs.Add(title + ".count", 0);
             }
-            string id = title + ((int)pairs[title + ".count"]).ToString();
-            ((List<string>)pairs[title + ".list"]).Add(id);
-            pairs.Add(id, thing);
+            string Id = title + ((int)pairs[title + ".count"]).ToString();
+            ((List<string>)pairs[title + ".list"]).Add(Id);
+            pairs.Add(Id, thing);
             pairs[title + ".count"] = (int)pairs[title + ".count"] + 1;
-            return id;
+            return Id;
         }
-        public void Set(string id, object thing)
+        public void Set(string Id, object thing)
         {
-            if (!pairs.ContainsKey(id))
+            if (!pairs.ContainsKey(Id))
             {
-                New(id.Split('.')[0], thing);
+                New(Id.Split('.')[0], thing);
             }
             else
             {
-                pairs.Add(id, thing);
+                pairs.Add(Id, thing);
             }
         }
-        public object Get(string id)
+        public object Get(string Id)
         {
-                return pairs[id];
+                return pairs[Id];
         }
         public List<object> GetList(string title)
         {

@@ -1,42 +1,24 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terminal.Gui;
 
 namespace RandomGame
 {
     class Program
     {
+        public static Save save;
+
         static void Main(string[] args)
         {
             UnitTests.Perform();
-            Initialize();
-            Body();
-        }
-        static void Initialize()
-        {
-            save = new Save();
-        }
-        static void Body()
-        {
-
-        }
-        public static Save save;
-    }
-
-    static class Command
-    {
-        public static void Trigger(string command)
-        {
-            command= command.ToLower();
-            switch (command)
-            {
-                case "":
-                    break;
-                default:
-                    break;
-            }
+            Logic.Initialize();
+            Gui.Begin();
+            
+            Application.Shutdown();
         }
     }
 }

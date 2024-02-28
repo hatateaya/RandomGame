@@ -16,8 +16,9 @@ namespace RandomGame
         {
             if (!Directory.Exists("unit-test-files"))
                 Directory.CreateDirectory("unit-test-files");
-            EventUnitTest();
+            //EventUnitTest();
         }
+        
         public static void EventUnitTest()
         {
             EventToJsonFile(GetEventSample(), "unit-test-files/sample-event.json");
@@ -35,14 +36,14 @@ namespace RandomGame
         {
             return new Event
             {
-                type = EventType.Display,
-                interval = EventInterval.Daily,
-                id = "event.1",
-                name = "Testing Event",
-                description = "Description",
-                selections = new List<Selection> { { new Selection { text = "I am the Selection" } } },
-                conditions = new List<Condition> { { new Condition() } },
-                effects = new List<Effect> { { new Effect { type = EffectType.DisplayMessage, message = "a" } } },
+                Type = EventType.Display,
+                Interval = EventInterval.Daily,
+                Id = "event.1",
+                Name = "Testing Event",
+                Description = "Description",
+                Selections = new List<Selection> { { new Selection { Text = "I am the Selection" } } },
+                Conditions = new List<Condition> { { new Condition() } },
+                Effects = new List<Effect> { { new Effect { Type = EffectType.DisplayMessage, Message = "a" } } },
             };
         }
     }

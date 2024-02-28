@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace RandomGame
 {
-    class LogicLoop
+    static class Logic
     {
-        public void EstajhoLoop()
+        public static void Initialize()
+        {
+            Program.save=new Save();
+        }
+        public static void EstajhoLoop()
         {
             List<object> list = Program.save.GetList("estajho");
             foreach (object item in list)
