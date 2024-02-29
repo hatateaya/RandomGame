@@ -16,8 +16,6 @@ namespace RandomGame
             UnitTests.Perform();
 
             Gui.Begin();
-            
-            Application.Shutdown();
         }
     }
 }

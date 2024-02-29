@@ -24,7 +24,7 @@ namespace RandomGame
         }
         public override string ToString()
         {
-            return $"{day}-{hour}";
+            return $"Day {day}\nHour {hour}";
         }
     }
 }

@@ -10,6 +10,7 @@ namespace RandomGame
     static class Gui
     {
         public static MainView mainView;
+        public static View viewBack;
         public static void Begin()
         {
             Console.SetWindowSize(80, 24);
@@ -29,6 +30,8 @@ namespace RandomGame
 
             Application.Top.Add(menuBar, window);
             Application.Run();
+
+            Application.Shutdown();
         }
         public static Pos AutoCenterY(View viewOuter)
         {

@@ -19,19 +19,20 @@ namespace RandomGame
             Height = Dim.Fill();
             menuBar= new MyMenuBar();
             leftPane = left;
-            leftPane.Width = Dim.Percent(30);
+            leftPane.Width = Dim.Percent(20);
+            leftPane.Y = 1;
             if (right != null)
             {
-                rightPane = right;
-                rightPane.X = Pos.Right(leftPane);
+                ChangeRightPane(right);
             }
-            Add(this.leftPane, this.rightPane);
+            Add(menuBar,leftPane, rightPane);
         }
         public void ChangeRightPane(View right)
-        {
+        { 
             Remove(rightPane);
             rightPane = right;
-            rightPane.X = Pos.Right(leftPane);
+            rightPane.Y = 1;
+            rightPane.X = Pos.Right(leftPane) + 1;
             Add(rightPane);
         }
     }

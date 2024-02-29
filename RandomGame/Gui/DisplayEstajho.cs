@@ -15,15 +15,28 @@ namespace RandomGame
             Title = "View estajho";
             var nameLabel = new Label()
             {
-                Text = "Name: "+estajho.name,
-                Y=1,
+                Text = "Name: " + estajho.name,
+                X = Pos.Center() -12,
+                Y=Gui.AutoCenterY(this),
             };
             var genderLabel = new Label()
             {
                 Text = "Gender: " + estajho.gender.ToString(),  
-                Y=2,
+                X=Pos.X(nameLabel),
+                Y=Pos.Bottom(nameLabel)+1,
             };
-            Add(nameLabel, genderLabel);
+            var backButton = new Button()
+            {
+                Text = "Back",
+                X = Pos.X(genderLabel),
+                Y = Pos.Bottom(genderLabel) + 1,
+            };
+            backButton.Clicked += () =>
+            {
+                Gui.mainView.ChangeRightPane(Gui.viewBack);
+                Gui.viewBack = null;
+            };
+            Add(nameLabel, genderLabel, backButton);
         }
     }
 }

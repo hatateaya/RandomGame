@@ -11,11 +11,11 @@ namespace RandomGame
 
         public static void NewSave()
         {
-            Program.save=new Save();
+            new Save();
         }
         public static void LoadSave(string fileName)
         {
-            Program.save = new Save();
+            new Save();
         }
         public static void EstajhoLoop()
         {

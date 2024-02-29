@@ -14,13 +14,16 @@ namespace RandomGame
         public string actorId;
         public Time time;
         public int seed;
-
         public Save()
         {
+            // it will make the Program.save as itself
+            // Convert to static?
+            Program.save = this;
             seed = new Random().Next(int.MaxValue);
             pairs.Add(".list", new List<string>());
-            playerId = New("estajho", new Estajho(EstajhoNewMode.Player));
-            actorId = New("estajho", new Estajho(EstajhoNewMode.Actor));
+            playerId = new Estajho(EstajhoNewMode.Player).id;
+            actorId = new Estajho(EstajhoNewMode.Actor).id;
+            new Relation(playerId,actorId);
             time = new Time();
         }
         public string New(string title, object thing)
