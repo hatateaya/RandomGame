@@ -23,9 +23,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build -o ./dist --configuration Release --runtime win-x64
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: artifact
-        path: RandomGame/bin/Debug/net8.0
+        name: dist
+        path: dist
