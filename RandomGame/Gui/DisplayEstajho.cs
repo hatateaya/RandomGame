@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terminal.Gui;
 
 namespace RandomGame
 {
-    static class Tools
+    class DisplayEstajho : Window
     {
-        public static string RandomSelect(string[] strings)
+        public DisplayEstajho(string id)
         {
-            return strings[new Random(Program.save.seed).Next(strings.Length)];
+
         }
     }
 }
