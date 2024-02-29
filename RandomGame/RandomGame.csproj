@@ -61,6 +61,8 @@
     <Compile Include="Gui\EventWindow.cs" />
     <Compile Include="Gui\Gui.cs" />
     <Compile Include="Gui\MainWindow.cs" />
+    <Compile Include="Gui\MainView.cs" />
+    <Compile Include="Gui\MyMenuBar.cs" />
     <Compile Include="Gui\StartingWindow.cs" />
     <Compile Include="Gui\TalkWindow.cs" />
     <Compile Include="Gui\ViewWindow.cs" />

@@ -16,8 +16,8 @@ namespace RandomGame
             Application.Init();
             Colors.Base.Normal = Application.Driver.MakeAttribute(Color.White, Color.Black); // Magic
 
-            var menuBar = new MenuBar(new MenuBarItem[] { new MenuBarItem("_Help", new MenuItem[] { new MenuItem("_About", "", () => { MessageBox.Query("About", "A Random Game", "_OK"); }) }) });
-            StartingWindow window = new StartingWindow();
+            var window = new StartingWindow();
+            var menuBar = new MyMenuBar();
 
             // Application.Resized += (Application.ResizedEventArgs args) => { Tools.SetTimeout(1000, () => { Application.Current.SetWidth(80, out _); Application.Current.SetHeight(24, out _); }); };
 
@@ -55,7 +55,6 @@ namespace RandomGame
                 int applicationHeight;
                 if(viewOuter is Window)
                 {
-                    // Inline variable declarion
                     viewOuter.Subviews[0].GetCurrentHeight(out applicationHeight);
                 }
                 else

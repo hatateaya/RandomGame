@@ -11,17 +11,18 @@ namespace RandomGame
     {
         public MainWindow() {
             Title = "Game";
-            this.Border.BorderStyle = BorderStyle.Double;
+            Border.BorderStyle = BorderStyle.Double;
+            Width = Dim.Fill();
+            Height = Dim.Fill();
 
             var timeLabel = new Label()
             {
-                // How to autoUpdate?
+                // How to auto update?
                 Text = "Time:"+Program.save.time.ToString(),
                 X = Pos.Percent(20),
                 Y = 4,
             };
             // Theres no layout displayer.
-            // Poor english.
             var viewButton = new Button()
             {
                 Text = "View",

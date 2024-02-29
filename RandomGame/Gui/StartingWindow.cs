@@ -8,11 +8,11 @@ using Terminal.Gui;
 
 namespace RandomGame
 {
-    class StartingWindow: Window
+    class StartingWindow : Window
     {
-        public StartingWindow() {
-            // Learn to read docs
-            this.Border.BorderStyle=BorderStyle.None;
+        public StartingWindow()
+        {
+            this.Border.BorderStyle = BorderStyle.None;
 
             var logoLabel = new Label()
             {
@@ -22,9 +22,8 @@ namespace RandomGame
  |   / _` | ' \/ _` / _ \ '  \ (_ / _` | '  \/ -_)
  |_|_\__,_|_||_\__,_\___/_|_|_\___\__,_|_|_|_\___|
 ",
-                X=Pos.Center(),
-                Y=Gui.AutoCenterY(this),
-                // The Pos is dynamic
+                X = Pos.Center(),
+                Y = Gui.AutoCenterY(this),
             };
 
             var newGameButton = new Button()
@@ -46,15 +45,11 @@ namespace RandomGame
             };
             loadGameButton.Clicked += () =>
             {
-                // Alt + O
-                var dialog = new OpenDialog("Open", "Choose the save.",new List<string> { ".json"});
-                // What the difference between this and others?
-                // Maybe it no async
+                var dialog = new OpenDialog("Open", "Choose the save.", new List<string> { ".json" });
                 Application.Run(dialog);
                 if (dialog.Canceled)
                     return;
                 var currentFile = dialog.FilePath;
-                // What is NSTack?
                 Logic.LoadSave((string)currentFile);
                 IntoMain();
             };
@@ -66,7 +61,6 @@ namespace RandomGame
             };
             exitButton.Clicked += () =>
             {
-                // how to exit the Application?
                 Environment.Exit(0);
             };
 
@@ -85,14 +79,9 @@ _/ (_(_/_
             this.Add(logoLabel, newGameButton, loadGameButton, exitButton, smallLogoLabel);
         }
         void IntoMain()
-        { 
-            // using this
-            Application.Current.Remove(this);
-            // Application.Current.Add(new MainWindow(), new ViewWindow());
-            // Poor layout system
-            Application.Current.Add(new MainWindow());
+        {
+            Application.Current.RemoveAll();
+            Application.Current.Add(new MainView(new MainWindow()));
         }
     }
-    // Cannot just using View, Why?
-    // Doesnt support auto center by View
 }
