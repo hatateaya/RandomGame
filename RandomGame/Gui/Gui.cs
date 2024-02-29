@@ -11,7 +11,7 @@ namespace RandomGame
     {
         public static void Begin()
         {
-            Console.SetWindowSize(80,24);
+            Console.SetWindowSize(80, 24);
 
             Application.Init();
             Colors.Base.Normal = Application.Driver.MakeAttribute(Color.White, Color.Black); // Magic
@@ -20,21 +20,31 @@ namespace RandomGame
             StartingWindow window = new StartingWindow();
 
             // Application.Resized += (Application.ResizedEventArgs args) => { Tools.SetTimeout(1000, () => { Application.Current.SetWidth(80, out _); Application.Current.SetHeight(24, out _); }); };
-            
+
             Application.Top.Add(menuBar, window);
             Application.Run();
         }
-        public static Pos AutoCenter(View viewOuter)
+        public static Pos AutoCenterY(View viewOuter)
         {
             // Im amazed by this library,,,
-            // Non-auto Center
+            // Debugged alot for Window
             return Pos.Function(() => {
                 int top = int.MaxValue;
                 int bottom = int.MinValue;
-                foreach (View view in viewOuter.Subviews)
+                IList<View> subviews;
+                if(viewOuter is Window)
                 {
-                    if (view.Frame.Y <= top)
+                    subviews = viewOuter.Subviews[0].Subviews;
+                }
+                else
+                {
+                    subviews = viewOuter.Subviews;
+                }
+                foreach (View view in subviews)
+                {
+                     if (view.Frame.Y <= top)
                     {
+                        // Pos cannot convert to int, using frame hack
                         top = view.Frame.Y;
                     }
                     if (view.Frame.Bottom >= bottom)
@@ -42,10 +52,17 @@ namespace RandomGame
                         bottom = view.Frame.Bottom;
                     }
                 }
-                // Inline variable declarion
-                viewOuter.GetCurrentHeight(out int applicationHeight);
-                // Pos cannot convert to int, using frame hack
-                return (applicationHeight - (bottom-top)) / 2;
+                int applicationHeight;
+                if(viewOuter is Window)
+                {
+                    // Inline variable declarion
+                    viewOuter.Subviews[0].GetCurrentHeight(out applicationHeight);
+                }
+                else
+                {
+                    viewOuter.GetCurrentHeight(out applicationHeight);
+                }
+                return (applicationHeight - (bottom - top)) / 2;
             });
         }
     }

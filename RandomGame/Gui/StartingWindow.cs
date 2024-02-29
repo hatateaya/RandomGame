@@ -23,7 +23,7 @@ namespace RandomGame
  |_|_\__,_|_||_\__,_\___/_|_|_\___\__,_|_|_|_\___|
 ",
                 X=Pos.Center(),
-                Y=Gui.AutoCenter(this),
+                Y=Gui.AutoCenterY(this),
                 // The Pos is dynamic
             };
 
