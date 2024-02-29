@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RandomGame
 {
-    internal class TalkWindow
+    class DialogWindow
     {
     }
 }

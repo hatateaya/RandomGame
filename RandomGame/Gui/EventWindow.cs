@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RandomGame
 {
-    internal class EventWindow
+    class EventWindow
     {
     }
 }

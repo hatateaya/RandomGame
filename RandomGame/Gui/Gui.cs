@@ -15,7 +15,12 @@ namespace RandomGame
             Console.SetWindowSize(80, 24);
 
             Application.Init();
-            Colors.Base.Normal = Application.Driver.MakeAttribute(Color.White, Color.Black); // Magic
+
+            Colors.Base.Normal = Application.Driver.MakeAttribute(Color.White, Color.Black);
+            Colors.Base.Focus = Application.Driver.MakeAttribute(Color.Black, Color.White);
+            Colors.Base.HotFocus = Application.Driver.MakeAttribute(Color.Black, Color.Gray);
+            Colors.Base.HotNormal = Application.Driver.MakeAttribute(Color.DarkGray, Color.Black);
+            // Magic
 
             var window = new StartingWindow();
             var menuBar = new MyMenuBar();

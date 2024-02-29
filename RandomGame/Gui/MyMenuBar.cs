@@ -11,7 +11,19 @@ namespace RandomGame
     {
         public MyMenuBar()
         {
-            Menus = new MenuBarItem[] { new MenuBarItem("_Help", new MenuItem[] { new MenuItem("_About", "", () => { MessageBox.Query("About", "A Random Game", "_OK"); }) }) };
+            var aboutMI = new MenuItem("_About", "", ShowAbout);
+            var helpMBI = new MenuBarItem("_Help",new MenuItem[] {aboutMI});
+
+            var newMI = new MenuItem("_New", "", ShowAbout);
+            var loadMI = new MenuItem("_Load", "", ShowAbout);
+            var saveMI = new MenuItem("_Save", "", ShowAbout);
+            var gameMBI = new MenuBarItem("_Game", new MenuItem[] { newMI,loadMI,saveMI });
+
+            Menus = new MenuBarItem[] { gameMBI,helpMBI };
+        }
+        void ShowAbout()
+        {
+            MessageBox.Query("About", "A Random Game", "_OK");
         }
     }
 }

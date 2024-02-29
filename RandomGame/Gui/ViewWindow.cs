@@ -10,6 +10,8 @@ namespace RandomGame
     class ViewWindow:Window
     {
         public ViewWindow() {
+            Title = "View";
+
             
         }
     }
