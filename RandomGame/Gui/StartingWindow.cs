@@ -80,8 +80,9 @@ _/ (_(_/_
         }
         void IntoMain()
         {
+            Gui.mainView = new MainView(new MainWindow());
             Application.Current.RemoveAll();
-            Application.Current.Add(new MainView(new MainWindow()));
+            Application.Current.Add(Gui.mainView);
         }
     }
 }

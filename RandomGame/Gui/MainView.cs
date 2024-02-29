@@ -23,6 +23,7 @@ namespace RandomGame
             if (right != null)
             {
                 rightPane = right;
+                rightPane.X = Pos.Right(leftPane);
             }
             Add(this.leftPane, this.rightPane);
         }
@@ -30,6 +31,7 @@ namespace RandomGame
         {
             Remove(rightPane);
             rightPane = right;
+            rightPane.X = Pos.Right(leftPane);
             Add(rightPane);
         }
     }

@@ -20,14 +20,18 @@ namespace RandomGame
                 // How to auto update?
                 Text = "Time:"+Program.save.time.ToString(),
                 X = Pos.Percent(20),
-                Y = 4,
+                Y = 2,
             };
             // Theres no layout displayer.
             var viewButton = new Button()
             {
                 Text = "View",
                 X = Pos.X(timeLabel),
-                Y = Pos.Bottom(timeLabel)+1,
+                Y = Pos.Bottom(timeLabel)+2,
+            };
+            viewButton.Clicked += () =>
+            {
+                Gui.mainView.ChangeRightPane(new ViewWindow());
             };
             Add(timeLabel,viewButton);
         }

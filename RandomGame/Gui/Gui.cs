@@ -9,6 +9,7 @@ namespace RandomGame
 {
     static class Gui
     {
+        public static MainView mainView;
         public static void Begin()
         {
             Console.SetWindowSize(80, 24);
