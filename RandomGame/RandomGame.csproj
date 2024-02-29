@@ -71,7 +71,8 @@
     <Compile Include="Logic\Event.cs" />
     <Compile Include="Logic\EventModel.cs" />
     <Compile Include="Logic\Logic.cs" />
-    <Compile Include="Logic\Mensasato.cs" />
+    <Compile Include="Logic\Mensastato.cs" />
+    <Compile Include="Logic\Reality.cs" />
     <Compile Include="Logic\Time.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Logic\Save.cs" />

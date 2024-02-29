@@ -9,21 +9,20 @@ namespace RandomGame
     class Estajho
     {
         public EventApplier eventApplier;
+        public Mensastatos mensastatos;
         public Estajho(EstajhoNewMode estajhoNewMode) {
-            if (estajhoNewMode == EstajhoNewMode.RandomNormal)
-            {
-
-            }
-            else if (estajhoNewMode == EstajhoNewMode.RandomYINANS)
-            {
-
-            }
+            mensastatos = new Mensastatos(estajhoNewMode);
             eventApplier = new EventApplier();
         }
     }
     enum EstajhoNewMode
     {
-        RandomNormal,
-        RandomYINANS
+        Player,
+        Actor,
+        MTF,
+        Abby,
+        Parent,
+        Classmate,
+        Dilei,
     }
 }

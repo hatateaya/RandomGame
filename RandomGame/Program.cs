@@ -11,7 +11,6 @@ namespace RandomGame
     class Program
     {
         public static Save save;
-
         static void Main(string[] args)
         {
             UnitTests.Perform();
