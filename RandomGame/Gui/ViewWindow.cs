@@ -12,7 +12,16 @@ namespace RandomGame
         public ViewWindow() {
             Title = "View";
 
+            var btn = new Button()
+            {
+                Text = "View",
+            };
+            btn.Clicked += () =>
+            {
+                Gui.mainView.ChangeRightPane(new DisplayEstajho("estajho.0"));
+            };
             
+            Add(btn);
         }
     }
 }

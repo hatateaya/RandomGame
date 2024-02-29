@@ -10,8 +10,8 @@ namespace RandomGame
     class Save
     {
         public Dictionary<string, object> pairs = new Dictionary<string, object>();
-        string playerId;
-        string actorId;
+        public string playerId;
+        public string actorId;
         public Time time;
         public int seed;
 

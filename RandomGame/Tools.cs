@@ -10,7 +10,8 @@ namespace RandomGame
     {
         public static string RandomSelect(string[] strings)
         {
-            return strings[new Random(Program.save.seed).Next(strings.Length)];
+            // No seed
+            return strings[new Random().Next(strings.Length)];
         }
     }
 }
