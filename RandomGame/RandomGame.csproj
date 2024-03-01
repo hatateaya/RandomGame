@@ -10,13 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Terminal.Gui" Version="1.15.1" />
+    <None Remove="RandomGame.exe" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\RandomGame.exe">
+    <Content Include="RandomGame.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Terminal.Gui" Version="1.15.1" />
   </ItemGroup>
 
 </Project>
