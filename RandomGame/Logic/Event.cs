@@ -18,7 +18,7 @@ namespace RandomGame
 
         }
         public EventApplier() { 
-        
+            Ids = new List<string>();
         }
     }
     static class EventHelper

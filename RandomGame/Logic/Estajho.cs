@@ -28,6 +28,7 @@ namespace RandomGame
         }
         Gender GenerateGender(EstajhoNewMode estajhoNewMode)
         {
+            // Should be update with factors.
             Gender gender;
             switch (estajhoNewMode)
             {

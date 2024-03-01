@@ -10,8 +10,10 @@ namespace RandomGame
 {
     class DisplayEstajho : Window
     {
+        public string id;
         public DisplayEstajho(string id)
-        { 
+        {
+            this.id = id;
             Estajho estajho = (Estajho)Program.save.Get(id);
             Title = "View estajho";
             var nameLabel = new Label()
@@ -36,7 +38,11 @@ namespace RandomGame
             relationsTree.AddObject(estajho);
             relationsTree.ObjectActivated  += (ObjectActivatedEventArgs<ITreeNode> args) =>
             {
-                Gui.mainView.OpenView(this, new DisplayEstajho(((Estajho)args.ActivatedObject).id));
+                var estajho = (Estajho)args.ActivatedObject;
+                if (estajho.id != this.id)
+                {
+                    Gui.mainView.OpenView(this, new DisplayEstajho(estajho.id));
+                }
             };
             var backButton = new Button()
             {

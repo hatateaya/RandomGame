@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,8 @@ namespace RandomGame
         public List<Mensastato> list;
         public Mensastatos(EstajhoNewMode newMode,Gender gender,Realitys realitys)
         {
+            list = new List<Mensastato>();
+
             Dictionary<MensastatoType, double> generateFactors = new Dictionary<MensastatoType, double>();
 
             switch (newMode)
