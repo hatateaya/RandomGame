@@ -26,8 +26,8 @@ namespace RandomGame
             string jsonString = File.ReadAllText(fileName);
             JsonSerializerOptions options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
-            Event myEvent = JsonSerializer.Deserialize<Event>(jsonString, options);
-            return myEvent;
+            Event? myEvent = JsonSerializer.Deserialize<Event>(jsonString, options);
+            return myEvent == null ? throw new Exception("Deserialized object is null") : myEvent;
         }
         public bool IsShouldPerform()
         {
