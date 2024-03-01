@@ -13,8 +13,6 @@ namespace RandomGame
         public static Save? save;
         static void Main(string[] args)
         {
-            UnitTests.Perform();
-
             Gui.Begin();
         }
     }

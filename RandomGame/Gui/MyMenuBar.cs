@@ -11,6 +11,9 @@ namespace RandomGame
     {
         public MyMenuBar()
         {
+            var eventWindowMI = new MenuItem("_Open Event Window", "", () => { Gui.mainView.OpenView(new EventWindow(Event.GetEventSample())); });
+            var TestMBI = new MenuBarItem("_Test", new MenuItem[] { eventWindowMI });
+
             var aboutMI = new MenuItem("_About", "", ShowAbout);
             var helpMBI = new MenuBarItem("_Help",new MenuItem[] {aboutMI});
 
@@ -19,7 +22,7 @@ namespace RandomGame
             var saveMI = new MenuItem("_Save", "", ShowAbout);
             var gameMBI = new MenuBarItem("_Game", new MenuItem[] { newMI,loadMI,saveMI });
 
-            Menus = new MenuBarItem[] { gameMBI,helpMBI };
+            Menus = new MenuBarItem[] { gameMBI,helpMBI, TestMBI };
         }
         void ShowAbout()
         {

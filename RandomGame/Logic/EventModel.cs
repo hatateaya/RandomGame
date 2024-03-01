@@ -12,15 +12,15 @@ namespace RandomGame
 {
     class Event
     {
-        public EventType Type { get; set; }
-        public EventInterval Interval { get; set; }
-        public List<Condition> Conditions { get; set; }
-        public List<Effect> Effects { get; set; }
-        public List<Factor> Factors { get; set; }
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public List<Selection> Selections { get; set; }
+        public EventType Type { get; set; } = EventType.Silent;
+        public EventInterval Interval { get; set; } = EventInterval.Daily;
+        public List<Condition> Conditions { get; set; } = new List<Condition>();
+        public List<Effect> Effects { get; set; } = new List<Effect>();
+        public List<Factor> Factors { get; set; } = new List<Factor>();
+        public string Id { get; set; } = "EVENT ID";
+        public string Name { get; set; } = "EVENT NAME";
+        public string Description { get; set; } = "EVENT DESCRIPTION";
+        public List<Selection> Selections { get; set; } = new List<Selection>();
         public static Event FromJsonFile(string fileName)
         {
             string jsonString = File.ReadAllText(fileName);
@@ -66,6 +66,35 @@ namespace RandomGame
                 effect.Perform();
             }
         }
+        public static void EventUnitTest()
+        {
+            if (!Directory.Exists("unit-test-files"))
+                Directory.CreateDirectory("unit-test-files");
+            EventToJsonFile(GetEventSample(), "unit-test-files/sample-event.json");
+            Event.FromJsonFile("unit-test-files/sample-event.json");
+        }
+        public static void EventToJsonFile(Event thisEvent, string fileName)
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions();
+            options.WriteIndented = true;
+            options.Converters.Add(new JsonStringEnumConverter());
+            string jsonString = JsonSerializer.Serialize(thisEvent, options);
+            File.WriteAllText(fileName, jsonString);
+        }
+        public static Event GetEventSample()
+        {
+            return new Event
+            {
+                Type = EventType.Display,
+                Interval = EventInterval.Daily,
+                Id = "event.1",
+                Name = "Testing Event",
+                Description = "Description",
+                Selections = new List<Selection> { { new Selection { Text = "I am the Selection" } } },
+                Conditions = new List<Condition> { { new Condition() } },
+                Effects = new List<Effect> { { new Effect { Type = EffectType.DisplayMessage, Message = "a" } } },
+            };
+        }
     }
     enum EventType
     {
@@ -82,9 +111,9 @@ namespace RandomGame
     }
     class Selection
     {
-        public List<Condition> TheConditions { get; set; }
-        public string Text { get; set; }
-        public List<Effect> Effects { get; set; }
+        public List<Condition> TheConditions { get; set; } = new List<Condition>();
+        public string Text { get; set; } = "SELECTION TEXT";
+        public List<Effect> Effects { get; set; } = new List<Effect>();
         public bool IsAvailable()
         {
             foreach(Condition condition in TheConditions)
@@ -107,8 +136,8 @@ namespace RandomGame
     class Condition
     {
         public ConditionType Type { get; set; } = ConditionType.True;
-        public string A { get; set; }
-        public string B { get; set; }
+        public string A { get; set; } = "A";
+        public string B { get; set; } = "B";
         public bool IsTrue()
         {
             switch (Type)
@@ -133,11 +162,11 @@ namespace RandomGame
     }
     class Effect
     {
-        public EffectType Type { get; set; }
-        public string Id { get; set; }
-        public DoubleValue DoubleValue { get; set; }
-        public ConditionedString StringValue { get; set; }
-        public string Message { get; set; }
+        public EffectType Type { get; set; } = EffectType.DisplayMessage;
+        public string Id { get; set; } = "EFFECT ID";
+        public DoubleValue DoubleValue { get; set; } = new DoubleValue();
+        public ConditionedString StringValue { get; set; } = new ConditionedString();
+        public string Message { get; set; } = "EFFECT MESSAGE";
         public void Perform()
         {
             Debug.WriteLine($"event {Id} with Type {Type} triggered");
@@ -171,9 +200,9 @@ namespace RandomGame
     }
     class Factor
     {
-        public Condition ConditionIn { get; set; }
-        public DoubleValue FactorTrue { get; set; }
-        public DoubleValue FactorFalse { get; set; }
+        public Condition ConditionIn { get; set; } = new Condition();
+        public DoubleValue FactorTrue { get; set; } = null;
+        public DoubleValue FactorFalse { get; set; } = new DoubleValue();
         public double Get()
         {
             if (ConditionIn.IsTrue())
@@ -190,8 +219,8 @@ namespace RandomGame
     class ConditionedString
     {
         public Condition TheCondition { get; set; } = new Condition();
-        public string ValueTrue { get; set; }
-        public string ValueFalse { get; set; }
+        public string ValueTrue { get; set; } = "STRING TRUE";
+        public string ValueFalse { get; set; } = "STRING FALSE";
         public string Get()
         {
             if (TheCondition.IsTrue())
@@ -206,11 +235,11 @@ namespace RandomGame
     }
     class DoubleValue
     {
-        public ValueType Type { get; set; }
-        public double Value { get; set; }
-        public string Id { get; set; }
-        public DoubleValue BasicValue { get; set; }
-        public Factor TheFactor { get; set; }
+        public ValueType Type { get; set; } = ValueType.Double;
+        public double Value { get; set; } = 1D;
+        public string Id { get; set; } = "";
+        public DoubleValue BasicValue { get; set; } = null;
+        public Factor TheFactor { get; set; } = new Factor();
         public double Get()
         {
             if (Type == ValueType.FactoredValue)

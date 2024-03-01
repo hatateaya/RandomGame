@@ -48,7 +48,14 @@ namespace RandomGame
         }
         public void Back()
         {
-            ChangeRightPane(viewStack.Pop());
+            if (viewStack.Count != 0)
+            {
+                ChangeRightPane(viewStack.Pop());
+            }
+            else
+            {
+                Remove(rightPane);
+            }
         }
     }
 }
