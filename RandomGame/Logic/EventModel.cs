@@ -201,7 +201,7 @@ namespace RandomGame
     class Factor
     {
         public Condition ConditionIn { get; set; } = new Condition();
-        public DoubleValue FactorTrue { get; set; } = null;
+        public DoubleValue? FactorTrue { get; set; } = null;
         public DoubleValue FactorFalse { get; set; } = new DoubleValue();
         public double Get()
         {
@@ -238,7 +238,7 @@ namespace RandomGame
         public ValueType Type { get; set; } = ValueType.Double;
         public double Value { get; set; } = 1D;
         public string Id { get; set; } = "";
-        public DoubleValue BasicValue { get; set; } = null;
+        public DoubleValue? BasicValue { get; set; } = null;
         public Factor TheFactor { get; set; } = new Factor();
         public double Get()
         {

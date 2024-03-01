@@ -14,6 +14,7 @@ namespace RandomGame
         public DisplayEstajho(string id)
         {
             this.id = id;
+            // as is
             Estajho estajho = (Estajho)Program.save.Get(id);
             Title = "View estajho";
             var nameLabel = new Label()

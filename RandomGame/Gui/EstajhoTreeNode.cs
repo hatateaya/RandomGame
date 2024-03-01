@@ -21,7 +21,7 @@ namespace RandomGame
             this.estajho = estajho;
             this.relationType = relationType;
         }
-        IList<ITreeNode> GetChildren()
+        List<ITreeNode> GetChildren()
         {
             var anothers = estajho.relations.GetAnothers(estajho.id);
             List<ITreeNode> list = new List<ITreeNode>();
