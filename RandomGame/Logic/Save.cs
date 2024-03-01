@@ -32,7 +32,7 @@ namespace RandomGame
                 pairs.Add(title + ".list", new List<string>());
                 pairs.Add(title + ".count", 0);
             }
-            string Id = title + ((int)pairs[title + ".count"]).ToString();
+            string Id = title + "."+((int)pairs[title + ".count"]).ToString();
             ((List<string>)pairs[title + ".list"]).Add(Id);
             pairs.Add(Id, thing);
             pairs[title + ".count"] = (int)pairs[title + ".count"] + 1;

@@ -27,7 +27,7 @@ namespace RandomGame
             };
             viewButton.Clicked += () =>
             {
-                Gui.mainView.ChangeRightPane(new ViewWindow());
+                Gui.mainView.OpenView(new ViewWindow());
             };
             Add(timeLabel,  viewButton);
         }

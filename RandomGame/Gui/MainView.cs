@@ -11,13 +11,15 @@ namespace RandomGame
     class MainView : View
     {
         public View leftPane;
-        public View rightPane;
+        public View? rightPane;
         public MyMenuBar menuBar;
-        public MainView(View left, View right =null)
+        public Stack<View> viewStack;
+        public MainView(View left, View right = null)
         {
+            viewStack = new Stack<View>();
             Width = Dim.Fill();
             Height = Dim.Fill();
-            menuBar= new MyMenuBar();
+            menuBar = new MyMenuBar();
             leftPane = left;
             leftPane.Width = Dim.Percent(20);
             leftPane.Y = 1;
@@ -25,15 +27,28 @@ namespace RandomGame
             {
                 ChangeRightPane(right);
             }
-            Add(menuBar,leftPane, rightPane);
+            Add(menuBar, leftPane, rightPane);
         }
         public void ChangeRightPane(View right)
-        { 
+        {
             Remove(rightPane);
             rightPane = right;
             rightPane.Y = 1;
             rightPane.X = Pos.Right(leftPane) + 1;
             Add(rightPane);
+        }
+        public void OpenView(View view)
+        {
+            ChangeRightPane(view);
+        }
+        public void OpenView(View from, View to)
+        {
+            viewStack.Push(from);
+            ChangeRightPane(to);
+        }
+        public void Back()
+        {
+            ChangeRightPane(viewStack.Pop());
         }
     }
 }

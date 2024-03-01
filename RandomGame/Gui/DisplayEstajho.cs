@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terminal.Gui;
+using Terminal.Gui.Trees;
 
 namespace RandomGame
 {
@@ -25,19 +26,30 @@ namespace RandomGame
                 X=Pos.X(nameLabel),
                 Y=Pos.Bottom(nameLabel)+1,
             };
+            var relationsTree = new TreeView()
+            {
+                X = Pos.Center(),
+                Y = Pos.Bottom(genderLabel) + 1,
+                Width = Dim.Percent(50),
+                Height=Dim.Percent(30),
+            };
+            relationsTree.AddObject(estajho);
+            relationsTree.ObjectActivated  += (ObjectActivatedEventArgs<ITreeNode> args) =>
+            {
+                Gui.mainView.OpenView(this, new DisplayEstajho(((Estajho)args.ActivatedObject).id));
+            };
             var backButton = new Button()
             {
-                Text = "Back",
+                Text = "_Back",
                 X = Pos.X(genderLabel),
-                Y = Pos.Bottom(genderLabel) + 1,
+                Y = Pos.Bottom(relationsTree) + 1,
                 IsDefault = true,
             };
             backButton.Clicked += () =>
             {
-                Gui.mainView.ChangeRightPane(Gui.viewBack);
-                Gui.viewBack = null;
+                Gui.mainView.Back();
             };
-            Add(nameLabel, genderLabel, backButton);
+            Add(nameLabel, genderLabel, relationsTree,backButton);
         }
     }
 }

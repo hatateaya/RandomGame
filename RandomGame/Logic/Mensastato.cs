@@ -9,7 +9,7 @@ namespace RandomGame
     class Mensastatos
     {
         public List<Mensastato> list;
-        public Mensastatos(EstajhoNewMode newMode)
+        public Mensastatos(EstajhoNewMode newMode,Gender gender,Realitys realitys)
         {
             Dictionary<MensastatoType, double> generateFactors = new Dictionary<MensastatoType, double>();
 

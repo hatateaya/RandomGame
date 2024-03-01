@@ -23,14 +23,12 @@ namespace RandomGame
             };
 
             tree.AddObject((Estajho)Program.save.Get(Program.save.actorId));
-            tree.ObjectActivated += ObjectActivated;
+            tree.ObjectActivated += (ObjectActivatedEventArgs<ITreeNode> args) =>
+            {
+                Gui.mainView.OpenView(this, new DisplayEstajho(((Estajho)args.ActivatedObject).id));
+            };
 
             Add(tree);
-        }
-        void ObjectActivated(ObjectActivatedEventArgs<ITreeNode> args)
-        {
-            Gui.viewBack = this;
-            Gui.mainView.ChangeRightPane(new DisplayEstajho(((Estajho)args.ActivatedObject).id));
         }
     }
 }

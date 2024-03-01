@@ -13,20 +13,18 @@ namespace RandomGame
         public string id;
         public string name;
         public Gender gender;
-        // true: female false:male
         public EventApplier eventApplier;
         public Mensastatos mensastatos;
         public Realitys realitys;
         public Relations relations;
         public Estajho(EstajhoNewMode estajhoNewMode) {
-            realitys = new Realitys();
-            mensastatos = new Mensastatos(estajhoNewMode);
-            eventApplier = new EventApplier();
-
-            gender = Gender.Female;
-            name = GenerateName(gender);
-            relations = new Relations();
             id = Program.save.New("estajho", this);
+            gender = GenerateGender(estajhoNewMode);
+            name = GenerateName(gender);
+            realitys = new Realitys();
+            mensastatos = new Mensastatos(estajhoNewMode,gender, realitys);
+            relations = new Relations();
+            eventApplier = new EventApplier();
         }
         Gender GenerateGender(EstajhoNewMode estajhoNewMode)
         {
