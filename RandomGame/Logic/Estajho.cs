@@ -18,7 +18,7 @@ namespace RandomGame
         public Realitys realitys;
         public Relations relations;
         public Estajho(EstajhoNewMode estajhoNewMode) {
-            id = Program.save.New("estajho", this);
+            id = Logic.save.New("estajho", this);
             gender = GenerateGender(estajhoNewMode);
             name = GenerateName(gender);
             realitys = new Realitys();
@@ -29,7 +29,7 @@ namespace RandomGame
                 new Relation(RelationType.Parent, new Estajho(EstajhoNewMode.Parent).id, id);
                 new Relation(RelationType.Parent, new Estajho(EstajhoNewMode.Parent).id, id);
             }
-            eventApplier = new EventApplier();
+            eventApplier = new EventApplier(this);
         }
         Gender GenerateGender(EstajhoNewMode estajhoNewMode)
         {

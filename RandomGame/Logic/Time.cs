@@ -12,14 +12,22 @@ namespace RandomGame
         public int day = 0;
         public void PassHour()
         {
-            
+            EstajhoLoop();
+            hour++;
         }
-        public void PassDay()
+        public void EstajhoLoop()
         {
-            for (int i = 0; i<24-hour; i++)
+            List<object> list = Logic.save.GetList("estajho");
+            foreach (object item in list)
+            {
+                ((Estajho)item).eventApplier.LoopOn();
+            }
+        }
+        public void PassHours(int hours)
+        {
+            for (int i = 0; i<hours; i++)
             {
                 PassHour();
-
             }
         }
         public override string ToString()

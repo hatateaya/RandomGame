@@ -38,7 +38,7 @@ namespace RandomGame
 
             foreach(MensastatoType key in generateFactors.Keys)
             {
-                var random = new Random(Program.save.seed);
+                var random = new Random(Logic.save.seed);
                 if (random.NextDouble() <= generateFactors[key])
                 {
                     list.Add(new Mensastato(key));
@@ -53,7 +53,7 @@ namespace RandomGame
         public Mensastato(MensastatoType mensasatoType)
         {
             this.Type = mensasatoType;
-            this.Value = new Random(Program.save.seed).NextDouble();
+            this.Value = new Random(Logic.save.seed).NextDouble();
         }
     }
     enum MensastatoType

@@ -17,7 +17,7 @@ namespace RandomGame
         public Random random;
         public Save()
         {
-            Program.save = this;
+            Logic.save = this;
             seed = new Random().Next(int.MaxValue);
             random = new Random(seed);
             pairs.Add(".list", new List<string>());

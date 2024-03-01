@@ -14,7 +14,7 @@ namespace RandomGame
             var anothers = new List<KeyValuePair<RelationType, Estajho>>();
             foreach(String id in relationIds)
             {
-                var relation = ((Relation)Program.save.Get(id));
+                var relation = ((Relation)Logic.save.Get(id));
                 anothers.Add(new KeyValuePair<RelationType, Estajho>(relation.type,relation.GetAnother(from)));
             }
             return anothers;
@@ -39,19 +39,19 @@ namespace RandomGame
             this.type = type;
             A = a;
             B = b;
-            id = Program.save.New("relation", this);
-            ((Estajho)Program.save.Get(A)).relations.Add(id);
-            ((Estajho)Program.save.Get(B)).relations.Add(id);
+            id = Logic.save.New("relation", this);
+            ((Estajho)Logic.save.Get(A)).relations.Add(id);
+            ((Estajho)Logic.save.Get(B)).relations.Add(id);
         }
         public Estajho GetAnother(string from)
         {
             if (A == from)
             {
-                return (Estajho)Program.save.Get(B);
+                return (Estajho)Logic.save.Get(B);
             }
             else
             {
-                return (Estajho)Program.save.Get(A);
+                return (Estajho)Logic.save.Get(A);
             }
         }
     }

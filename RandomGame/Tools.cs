@@ -10,11 +10,11 @@ namespace RandomGame
     {
         public static string RandomSelect(params string[] strings)
         {
-            return strings[Program.save.random.Next(strings.Length)];
+            return strings[Logic.save.random.Next(strings.Length)];
         }
         public static Object RandomSelect(params Object[] objects)
         {
-            return objects[Program.save.random.Next(objects.Length)];
+            return objects[Logic.save.random.Next(objects.Length)];
         }
     }
 }

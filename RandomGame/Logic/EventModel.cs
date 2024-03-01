@@ -13,7 +13,8 @@ namespace RandomGame
     class Event
     {
         public EventType Type { get; set; } = EventType.Silent;
-        public EventInterval Interval { get; set; } = EventInterval.Daily;
+        // Hours
+        public int Interval { get; set; } = 24;
         public List<Condition> Conditions { get; set; } = new List<Condition>();
         public List<Effect> Effects { get; set; } = new List<Effect>();
         public List<Factor> Factors { get; set; } = new List<Factor>();
@@ -86,7 +87,6 @@ namespace RandomGame
             return new Event
             {
                 Type = EventType.Display,
-                Interval = EventInterval.Daily,
                 Id = "event.1",
                 Name = "Testing Event",
                 Description = "Description",
@@ -100,14 +100,6 @@ namespace RandomGame
     {
         Silent,
         Display
-    }
-    enum EventInterval
-    {
-        Daily,
-        Weeky,
-        Monthy,
-        Seaseny,
-        Yearly,
     }
     class Selection
     {
@@ -176,10 +168,10 @@ namespace RandomGame
                     Console.WriteLine(Message);
                     break;
                 case EffectType.SaveSetD:
-                    Program.save.Set(Id, DoubleValue.Get());
+                    Logic.save.Set(Id, DoubleValue.Get());
                     break;
                 case EffectType.SaveSetS:
-                    Program.save.Set(Id, DoubleValue.Get());
+                    Logic.save.Set(Id, DoubleValue.Get());
                     break;
                 case EffectType.PerformCommand:
                     Command.Perform(Id);
@@ -252,7 +244,7 @@ namespace RandomGame
             }
             else if (Type == ValueType.FromSave)
             {
-                return (double)Program.save.Get(Id);
+                return (double)Logic.save.Get(Id);
             }
             else
             {
