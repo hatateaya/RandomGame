@@ -11,15 +11,11 @@ namespace RandomGame
     class MainView : View
     {
         public View leftPane;
-        public View rightPane;
+        public View? rightPane;
         public MyMenuBar menuBar;
         public Stack<View> viewStack;
         public MainView(View left, View? right = null)
         {
-            if(right== null)
-            {
-                right = new Window();
-            }
             viewStack = new Stack<View>();
             Width = Dim.Fill();
             Height = Dim.Fill();
@@ -27,7 +23,10 @@ namespace RandomGame
             leftPane = left;
             leftPane.Width = Dim.Percent(20);
             leftPane.Y = 1;
-            ChangeRightPane(right);
+            if (right != null)
+            {
+                ChangeRightPane(right);
+            }
             Add(menuBar, leftPane, rightPane);
         }
         public void ChangeRightPane(View right)

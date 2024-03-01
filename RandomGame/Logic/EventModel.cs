@@ -164,8 +164,8 @@ namespace RandomGame
     {
         public EffectType Type { get; set; } = EffectType.DisplayMessage;
         public string Id { get; set; } = "EFFECT ID";
-        public DoubleValue DoubleValue { get; set; } = new DoubleValue();
-        public ConditionedString StringValue { get; set; } = new ConditionedString();
+        public DoubleValue? DoubleValue { get; set; } = null;
+        public ConditionedString? StringValue { get; set; } = null;
         public string Message { get; set; } = "EFFECT MESSAGE";
         public void Perform()
         {
@@ -202,7 +202,7 @@ namespace RandomGame
     {
         public Condition ConditionIn { get; set; } = new Condition();
         public DoubleValue? FactorTrue { get; set; } = null;
-        public DoubleValue FactorFalse { get; set; } = new DoubleValue();
+        public DoubleValue? FactorFalse { get; set; } = null;
         public double Get()
         {
             if (ConditionIn.IsTrue())
@@ -218,7 +218,7 @@ namespace RandomGame
     }
     class ConditionedString
     {
-        public Condition TheCondition { get; set; } = new Condition();
+        public Condition? TheCondition { get; set; } = null;
         public string ValueTrue { get; set; } = "STRING TRUE";
         public string ValueFalse { get; set; } = "STRING FALSE";
         public string Get()
@@ -239,7 +239,7 @@ namespace RandomGame
         public double Value { get; set; } = 1D;
         public string Id { get; set; } = "";
         public DoubleValue? BasicValue { get; set; } = null;
-        public Factor TheFactor { get; set; } = new Factor();
+        public Factor? TheFactor { get; set; } = null;
         public double Get()
         {
             if (Type == ValueType.FactoredValue)
