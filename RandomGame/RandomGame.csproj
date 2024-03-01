@@ -10,10 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\RandomGame.exe" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Terminal.Gui" Version="1.15.1" />
   </ItemGroup>
 
