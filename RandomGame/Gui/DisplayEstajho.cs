@@ -11,7 +11,7 @@ namespace RandomGame
     {
         public DisplayEstajho(string id)
         { 
-            Estajho estajho = (Estajho)Program.save.Get(Program.save.actorId);
+            Estajho estajho = (Estajho)Program.save.Get(id);
             Title = "View estajho";
             var nameLabel = new Label()
             {
@@ -30,6 +30,7 @@ namespace RandomGame
                 Text = "Back",
                 X = Pos.X(genderLabel),
                 Y = Pos.Bottom(genderLabel) + 1,
+                IsDefault = true,
             };
             backButton.Clicked += () =>
             {

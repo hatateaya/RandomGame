@@ -8,10 +8,13 @@ namespace RandomGame
 {
     static class Tools
     {
-        public static string RandomSelect(string[] strings)
+        public static string RandomSelect(params string[] strings)
         {
-            // No seed
-            return strings[new Random().Next(strings.Length)];
+            return strings[new Random(Program.save.seed).Next(strings.Length)];
+        }
+        public static Object RandomSelect(params Object[] objects)
+        {
+            return objects[new Random(Program.save.seed).Next(objects.Length)];
         }
     }
 }

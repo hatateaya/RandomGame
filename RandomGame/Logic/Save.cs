@@ -16,8 +16,6 @@ namespace RandomGame
         public int seed;
         public Save()
         {
-            // it will make the Program.save as itself
-            // Convert to static?
             Program.save = this;
             seed = new Random().Next(int.MaxValue);
             pairs.Add(".list", new List<string>());

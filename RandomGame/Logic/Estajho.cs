@@ -22,12 +22,45 @@ namespace RandomGame
             realitys = new Realitys();
             mensastatos = new Mensastatos(estajhoNewMode);
             eventApplier = new EventApplier();
+
             gender = Gender.Female;
             name = GenerateName(gender);
             relations = new Relations();
             id = Program.save.New("estajho", this);
         }
-        static string GenerateName(Gender gender)
+        Gender GenerateGender(EstajhoNewMode estajhoNewMode)
+        {
+            Gender gender;
+            switch (estajhoNewMode)
+            {
+                case EstajhoNewMode.Actor:
+                    gender = (Gender)Tools.RandomSelect(Gender.Mtf, Gender.Mtx, Gender.Female, Gender.Futa);
+                    break;
+                case EstajhoNewMode.MTF:
+                    gender = (Gender)Tools.RandomSelect(Gender.Mtx, Gender.Mtx, Gender.Futa);
+                    break;
+                case EstajhoNewMode.Abby:
+                    gender = (Gender)Tools.RandomSelect(Gender.Mtx, Gender.Ftx, Gender.Futa);
+                    break;
+                case EstajhoNewMode.Dilei:
+                    gender = Gender.Female;
+                    break;
+                case EstajhoNewMode.Random:
+                case EstajhoNewMode.RandomYINANS:
+                    gender = (Gender)Tools.RandomSelect(Gender.Male, Gender.Female, Gender.Mtf, Gender.Mtx, Gender.Ftm, Gender.Ftx, Gender.Futa);
+                    break;
+                case EstajhoNewMode.MD:
+                case EstajhoNewMode.Parent:
+                case EstajhoNewMode.Classmate:
+                case EstajhoNewMode.RandomNormal:
+                case EstajhoNewMode.Player:
+                default:
+                    gender = (Gender)Tools.RandomSelect(Gender.Male, Gender.Female);
+                    break;
+            }
+            return gender;
+        }
+        string GenerateName(Gender gender)
         {
             string[] maleNames = {
             "Hiroto","Shota","Ren","Sora","Yuto","Yudo","Yuma","Eita","Sho" };
@@ -42,10 +75,9 @@ namespace RandomGame
                 case Gender.Mtf:
                     return (Tools.RandomSelect(femaleNames));
                 default:
-                    return "DefaultName";
+                    return (Tools.RandomSelect(femaleNames.Union<string>(maleNames).ToArray<string>()));
             }
         }
-        // get set cast
         public override IList<ITreeNode> Children => relations.GetAnothers(id).Cast<ITreeNode>().ToList();
         public override string Text { get => name; set => name = value; }
     }
@@ -68,5 +100,9 @@ namespace RandomGame
         Parent,
         Classmate,
         Dilei,
+        MD,
+        RandomNormal,
+        RandomYINANS,
+        Random,
     }
 }
