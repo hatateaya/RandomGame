@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Terminal.Gui.Trees;
+﻿using Terminal.Gui.Trees;
 
 namespace RandomGame
 {
-    class EstajhoTreeNode:TreeNode
+    class EstajhoTreeNode : TreeNode
     {
         public Estajho estajho;
         public RelationType? relationType;
@@ -16,7 +10,7 @@ namespace RandomGame
         {
             this.estajho = estajho;
         }
-        public EstajhoTreeNode(Estajho estajho,RelationType relationType)
+        public EstajhoTreeNode(Estajho estajho, RelationType relationType)
         {
             this.estajho = estajho;
             this.relationType = relationType;

@@ -1,0 +1,31 @@
+{
+  "Type": "Display",
+  "Interval": 24,
+  "Conditions": [
+    {
+      "Type": "True",
+      "A": "A",
+      "B": "B"
+    }
+  ],
+  "Effects": [
+    {
+      "Type": "DisplayMessage",
+      "Id": "EFFECT ID",
+      "DoubleValue": null,
+      "StringValue": null,
+      "Message": "a"
+    }
+  ],
+  "Factors": [],
+  "Id": "event.1",
+  "Name": "Testing Event",
+  "Description": "Description",
+  "Selections": [
+    {
+      "TheConditions": [],
+      "Text": "I am the Selection",
+      "Effects": []
+    }
+  ]
+}

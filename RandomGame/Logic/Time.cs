@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RandomGame
+﻿namespace RandomGame
 {
     class Time
     {
@@ -25,7 +19,7 @@ namespace RandomGame
         }
         public void PassHours(int hours)
         {
-            for (int i = 0; i<hours; i++)
+            for (int i = 0; i < hours; i++)
             {
                 PassHour();
             }

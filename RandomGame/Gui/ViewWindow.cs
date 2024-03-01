@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terminal.Gui;
+﻿using Terminal.Gui;
 using Terminal.Gui.Trees;
 
 namespace RandomGame
 {
-    class ViewWindow:Window
+    class ViewWindow : Window
     {
-        public ViewWindow() {
+        public ViewWindow()
+        {
             Title = "Estajhos";
 
             var tree = new TreeView()
             {
                 X = 4,
                 Y = 2,
-                Width=Dim.Fill(4),
+                Width = Dim.Fill(4),
                 Height = Dim.Fill(2),
             };
 

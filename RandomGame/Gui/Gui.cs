@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terminal.Gui;
+﻿using Terminal.Gui;
 
 namespace RandomGame
 {
@@ -36,11 +31,12 @@ namespace RandomGame
         {
             // Im amazed by this library,,,
             // Debugged alot for Window
-            return Pos.Function(() => {
+            return Pos.Function(() =>
+            {
                 int top = int.MaxValue;
                 int bottom = int.MinValue;
                 IList<View> subviews;
-                if(viewOuter is Window)
+                if (viewOuter is Window)
                 {
                     subviews = viewOuter.Subviews[0].Subviews;
                 }
@@ -50,7 +46,7 @@ namespace RandomGame
                 }
                 foreach (View view in subviews)
                 {
-                     if (view.Frame.Y <= top)
+                    if (view.Frame.Y <= top)
                     {
                         // Pos cannot convert to int, using frame hack
                         top = view.Frame.Y;
@@ -61,7 +57,7 @@ namespace RandomGame
                     }
                 }
                 int applicationHeight;
-                if(viewOuter is Window)
+                if (viewOuter is Window)
                 {
                     viewOuter.Subviews[0].GetCurrentHeight(out applicationHeight);
                 }

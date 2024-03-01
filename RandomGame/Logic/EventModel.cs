@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Text.Json;
-using System.IO;
-using System.Diagnostics;
 using System.Text.Json.Serialization;
 
 namespace RandomGame
@@ -15,9 +9,9 @@ namespace RandomGame
         public EventType Type { get; set; } = EventType.Silent;
         // Hours
         public int Interval { get; set; } = 24;
-        public List<Condition> Conditions { get; set; } = new List<Condition>();
-        public List<Effect> Effects { get; set; } = new List<Effect>();
-        public List<Factor> Factors { get; set; } = new List<Factor>();
+        public List<Condition> Conditions { get; set; } = [];
+        public List<Effect> Effects { get; set; } = [];
+        public List<Factor> Factors { get; set; } = [];
         public string Id { get; set; } = "EVENT ID";
         public string Name { get; set; } = "EVENT NAME";
         public string Description { get; set; } = "EVENT DESCRIPTION";
@@ -25,10 +19,10 @@ namespace RandomGame
         public static Event FromJsonFile(string fileName)
         {
             string jsonString = File.ReadAllText(fileName);
-            JsonSerializerOptions options = new JsonSerializerOptions();
+            JsonSerializerOptions options = new();
             options.Converters.Add(new JsonStringEnumConverter());
             Event? myEvent = JsonSerializer.Deserialize<Event>(jsonString, options);
-            return myEvent == null ? throw new Exception("Deserialized object is null") : myEvent;
+            return myEvent ?? throw new Exception("Deserialized object is null");
         }
         public bool IsShouldPerform()
         {
@@ -72,12 +66,14 @@ namespace RandomGame
             if (!Directory.Exists("unit-test-files"))
                 Directory.CreateDirectory("unit-test-files");
             EventToJsonFile(GetEventSample(), "unit-test-files/sample-event.json");
-            Event.FromJsonFile("unit-test-files/sample-event.json");
+            FromJsonFile("unit-test-files/sample-event.json");
         }
         public static void EventToJsonFile(Event thisEvent, string fileName)
         {
-            JsonSerializerOptions options = new JsonSerializerOptions();
-            options.WriteIndented = true;
+            JsonSerializerOptions options = new()
+            {
+                WriteIndented = true
+            };
             options.Converters.Add(new JsonStringEnumConverter());
             string jsonString = JsonSerializer.Serialize(thisEvent, options);
             File.WriteAllText(fileName, jsonString);
@@ -103,12 +99,12 @@ namespace RandomGame
     }
     class Selection
     {
-        public List<Condition> TheConditions { get; set; } = new List<Condition>();
+        public List<Condition> TheConditions { get; set; } = [];
         public string Text { get; set; } = "SELECTION TEXT";
-        public List<Effect> Effects { get; set; } = new List<Effect>();
+        public List<Effect> Effects { get; set; } = [];
         public bool IsAvailable()
         {
-            foreach(Condition condition in TheConditions)
+            foreach (Condition condition in TheConditions)
             {
                 if (!condition.IsTrue())
                 {
@@ -119,7 +115,7 @@ namespace RandomGame
         }
         public void Perform()
         {
-            foreach(Effect effect in Effects)
+            foreach (Effect effect in Effects)
             {
                 effect.Perform();
             }
@@ -132,15 +128,12 @@ namespace RandomGame
         public string B { get; set; } = "B";
         public bool IsTrue()
         {
-            switch (Type)
+            return Type switch
             {
-                case ConditionType.True:
-                    return true;
-                case ConditionType.False:
-                    return false;
-                default:
-                    throw new NotImplementedException();
-            }
+                ConditionType.True => true,
+                ConditionType.False => false,
+                _ => throw new NotImplementedException(),
+            };
         }
     }
     enum ConditionType

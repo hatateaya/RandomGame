@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RandomGame
+﻿namespace RandomGame
 {
     class Relations
     {
         public List<string> relationIds;
-        public List<KeyValuePair<RelationType,Estajho>> GetAnothers(string from)
+        public List<KeyValuePair<RelationType, Estajho>> GetAnothers(string from)
         {
             var anothers = new List<KeyValuePair<RelationType, Estajho>>();
-            foreach(String id in relationIds)
+            foreach (String id in relationIds)
             {
                 var relation = ((Relation)Logic.save.Get(id));
-                anothers.Add(new KeyValuePair<RelationType, Estajho>(relation.type,relation.GetAnother(from)));
+                anothers.Add(new KeyValuePair<RelationType, Estajho>(relation.type, relation.GetAnother(from)));
             }
             return anothers;
         }
@@ -34,7 +28,8 @@ namespace RandomGame
         public string id;
         public string A { get; set; }
         public string B { get; set; }
-        public Relation(RelationType type,string a,string b) {
+        public Relation(RelationType type, string a, string b)
+        {
 
             this.type = type;
             A = a;

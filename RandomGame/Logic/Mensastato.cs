@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RandomGame
+﻿namespace RandomGame
 {
     class Mensastatos
     {
         public List<Mensastato> list;
-        public Mensastatos(EstajhoNewMode newMode,Gender gender,Realitys realitys)
+        public Mensastatos(EstajhoNewMode newMode, Gender gender, Realitys realitys)
         {
             list = new List<Mensastato>();
 
-            Dictionary<MensastatoType, double> generateFactors = new Dictionary<MensastatoType, double>();
+            Dictionary<MensastatoType, double> generateFactors = [];
 
             switch (newMode)
             {
@@ -36,7 +29,7 @@ namespace RandomGame
                     break;
             };
 
-            foreach(MensastatoType key in generateFactors.Keys)
+            foreach (MensastatoType key in generateFactors.Keys)
             {
                 var random = new Random(Logic.save.seed);
                 if (random.NextDouble() <= generateFactors[key])
@@ -46,15 +39,10 @@ namespace RandomGame
             }
         }
     }
-    class Mensastato
+    class Mensastato(MensastatoType mensasatoType)
     {
-        MensastatoType Type;
-        double Value;
-        public Mensastato(MensastatoType mensasatoType)
-        {
-            this.Type = mensasatoType;
-            this.Value = new Random(Logic.save.seed).NextDouble();
-        }
+        MensastatoType Type = mensasatoType;
+        double Value = new Random(Logic.save.seed).NextDouble();
     }
     enum MensastatoType
     {

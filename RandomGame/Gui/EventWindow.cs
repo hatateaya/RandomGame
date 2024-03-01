@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terminal.Gui;
+﻿using Terminal.Gui;
 
 namespace RandomGame
 {
@@ -15,14 +10,14 @@ namespace RandomGame
             var nameLabel = new Label()
             {
                 Text = theEvent.Name,
-                X=Pos.Center(),
-                Y=Gui.AutoCenterY(this),
+                X = Pos.Center(),
+                Y = Gui.AutoCenterY(this),
             };
             var descriptionLabel = new Label()
             {
                 Text = theEvent.Description,
-                X=Pos.Center(),
-                Y=Pos.Bottom(nameLabel)+1,
+                X = Pos.Center(),
+                Y = Pos.Bottom(nameLabel) + 1,
             };
             Add(nameLabel, descriptionLabel);
             View prevView = descriptionLabel;
@@ -32,9 +27,9 @@ namespace RandomGame
                 {
                     Text = selection.Text,
                     X = Pos.Center(),
-                    Y = Pos.Bottom(prevView)+1,
+                    Y = Pos.Bottom(prevView) + 1,
                 };
-                selectionButton.Clicked += ()=> { selection.Perform();Gui.mainView.Back(); };
+                selectionButton.Clicked += () => { selection.Perform(); Gui.mainView.Back(); };
                 prevView = selectionButton;
                 Add(selectionButton);
             }

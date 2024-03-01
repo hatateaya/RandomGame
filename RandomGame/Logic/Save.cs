@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RandomGame
+﻿namespace RandomGame
 {
     class Save
     {
-        public Dictionary<string, object> pairs = new Dictionary<string, object>();
+        public Dictionary<string, object> pairs = [];
         public string playerId;
         public string actorId;
         public Time time;
@@ -23,7 +16,7 @@ namespace RandomGame
             pairs.Add(".list", new List<string>());
             playerId = new Estajho(EstajhoNewMode.Player).id;
             actorId = new Estajho(EstajhoNewMode.Actor).id;
-            new Relation(RelationType.Friend,playerId,actorId);
+            new Relation(RelationType.Friend, playerId, actorId);
             time = new Time();
         }
         public string New(string title, object thing)
@@ -34,7 +27,7 @@ namespace RandomGame
                 pairs.Add(title + ".list", new List<string>());
                 pairs.Add(title + ".count", 0);
             }
-            string Id = title + "."+((int)pairs[title + ".count"]).ToString();
+            string Id = title + "." + ((int)pairs[title + ".count"]).ToString();
             ((List<string>)pairs[title + ".list"]).Add(Id);
             pairs.Add(Id, thing);
             pairs[title + ".count"] = (int)pairs[title + ".count"] + 1;
@@ -53,7 +46,7 @@ namespace RandomGame
         }
         public object Get(string Id)
         {
-                return pairs[Id];
+            return pairs[Id];
         }
         public List<object> GetList(string title)
         {

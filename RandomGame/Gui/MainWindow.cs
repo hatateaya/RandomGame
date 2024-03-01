@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terminal.Gui;
+﻿using Terminal.Gui;
 
 namespace RandomGame
 {
     class MainWindow : Window
     {
-        public MainWindow() {
+        public MainWindow()
+        {
             Width = Dim.Fill();
             Height = Dim.Fill();
             var timeLabel = new Label()
@@ -32,7 +28,8 @@ namespace RandomGame
                     Logic.timer.Stop();
                 };
             }
-            else {
+            else
+            {
                 timerButton.Text = "Continue";
                 timerButton.Clicked += () =>
                 {
@@ -43,14 +40,14 @@ namespace RandomGame
             {
                 Text = "View",
                 X = Pos.Center(),
-                Y = Pos.Bottom(timerButton) +1,
+                Y = Pos.Bottom(timerButton) + 1,
                 IsDefault = true,
             };
             viewButton.Clicked += () =>
             {
                 Gui.mainView.OpenView(new ViewWindow());
             };
-            Add(timeLabel,  viewButton);
+            Add(timeLabel, viewButton);
         }
     }
 }
