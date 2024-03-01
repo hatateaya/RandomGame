@@ -14,14 +14,16 @@ namespace RandomGame
         public string actorId;
         public Time time;
         public int seed;
+        public Random random;
         public Save()
         {
             Program.save = this;
             seed = new Random().Next(int.MaxValue);
+            random = new Random(seed);
             pairs.Add(".list", new List<string>());
             playerId = new Estajho(EstajhoNewMode.Player).id;
             actorId = new Estajho(EstajhoNewMode.Actor).id;
-            new Relation(playerId,actorId);
+            new Relation(RelationType.Friend,playerId,actorId);
             time = new Time();
         }
         public string New(string title, object thing)

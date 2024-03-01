@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Terminal.Gui.Trees;
 
 namespace RandomGame
 {
-    class Estajho : TreeNode
+    class Estajho
     {
         public string id;
         public string name;
@@ -24,6 +24,11 @@ namespace RandomGame
             realitys = new Realitys();
             mensastatos = new Mensastatos(estajhoNewMode,gender, realitys);
             relations = new Relations();
+            if (estajhoNewMode != EstajhoNewMode.Parent)
+            {
+                new Relation(RelationType.Parent, new Estajho(EstajhoNewMode.Parent).id, id);
+                new Relation(RelationType.Parent, new Estajho(EstajhoNewMode.Parent).id, id);
+            }
             eventApplier = new EventApplier();
         }
         Gender GenerateGender(EstajhoNewMode estajhoNewMode)
@@ -77,8 +82,6 @@ namespace RandomGame
                     return (Tools.RandomSelect(femaleNames.Union<string>(maleNames).ToArray<string>()));
             }
         }
-        public override IList<ITreeNode> Children => relations.GetAnothers(id).Cast<ITreeNode>().ToList();
-        public override string Text { get => name; set => name = value; }
     }
     enum Gender
     {

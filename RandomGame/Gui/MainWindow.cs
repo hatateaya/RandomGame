@@ -24,6 +24,7 @@ namespace RandomGame
                 Text = "View",
                 X = Pos.Center(),
                 Y = Pos.Bottom(timeLabel) +2,
+                IsDefault = true,
             };
             viewButton.Clicked += () =>
             {

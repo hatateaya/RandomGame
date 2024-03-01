@@ -35,10 +35,10 @@ namespace RandomGame
                 Width = Dim.Percent(50),
                 Height=Dim.Percent(30),
             };
-            relationsTree.AddObject(estajho);
+            relationsTree.AddObject(new EstajhoTreeNode(estajho));
             relationsTree.ObjectActivated  += (ObjectActivatedEventArgs<ITreeNode> args) =>
             {
-                var estajho = (Estajho)args.ActivatedObject;
+                var estajho = ((EstajhoTreeNode)args.ActivatedObject).estajho;
                 if (estajho.id != this.id)
                 {
                     Gui.mainView.OpenView(this, new DisplayEstajho(estajho.id));

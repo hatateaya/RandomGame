@@ -9,12 +9,13 @@ namespace RandomGame
     class Relations
     {
         public List<string> relationIds;
-        public List<Estajho> GetAnothers(string from)
+        public List<KeyValuePair<RelationType,Estajho>> GetAnothers(string from)
         {
-            var anothers = new List<Estajho>();
+            var anothers = new List<KeyValuePair<RelationType, Estajho>>();
             foreach(String id in relationIds)
             {
-                anothers.Add(((Relation)Program.save.Get(id)).GetAnother(from));
+                var relation = ((Relation)Program.save.Get(id));
+                anothers.Add(new KeyValuePair<RelationType, Estajho>(relation.type,relation.GetAnother(from)));
             }
             return anothers;
         }
@@ -29,11 +30,13 @@ namespace RandomGame
     }
     class Relation
     {
+        public RelationType type;
         public string id;
         public string A { get; set; }
         public string B { get; set; }
-        public Relation(string a,string b) {
-            
+        public Relation(RelationType type,string a,string b) {
+
+            this.type = type;
             A = a;
             B = b;
             id = Program.save.New("relation", this);
@@ -51,5 +54,13 @@ namespace RandomGame
                 return (Estajho)Program.save.Get(A);
             }
         }
+    }
+    enum RelationType
+    {
+        Parent,
+        // A is B's parent
+        Couple,
+        Classmate,
+        Friend,
     }
 }

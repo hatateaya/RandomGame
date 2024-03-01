@@ -11,6 +11,6 @@ namespace RandomGame
     }
     class Reality
     {
-
+        
     }
 }
