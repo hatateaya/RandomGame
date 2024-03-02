@@ -12,7 +12,7 @@ namespace RandomGame
         {
             foreach (Event item in events)
             {
-                if (Logic.save.time.hour % item.Interval == 0)
+                if (Tools.Lucky(1D / item.Interval))
                 {
                     item.Try();
                 }
