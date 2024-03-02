@@ -15,12 +15,9 @@ namespace RandomGame
             Colors.Base.Focus = Application.Driver.MakeAttribute(Color.Black, Color.White);
             Colors.Base.HotFocus = Application.Driver.MakeAttribute(Color.Black, Color.Gray);
             Colors.Base.HotNormal = Application.Driver.MakeAttribute(Color.DarkGray, Color.Black);
-            // Magic
 
             var window = new StartingWindow();
             var menuBar = new MyMenuBar();
-
-            // Application.Resized += (Application.ResizedEventArgs args) => { Tools.SetTimeout(1000, () => { Application.Current.SetWidth(80, out _); Application.Current.SetHeight(24, out _); }); };
 
             Application.Top.Add(menuBar, window);
             Application.Run();
@@ -48,7 +45,6 @@ namespace RandomGame
                 {
                     if (view.Frame.Y <= top)
                     {
-                        // Pos cannot convert to int, using frame hack
                         top = view.Frame.Y;
                     }
                     if (view.Frame.Bottom >= bottom)

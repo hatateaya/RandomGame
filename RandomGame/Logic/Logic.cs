@@ -1,4 +1,5 @@
-﻿using Timer = System.Timers.Timer;
+﻿using System.Diagnostics;
+using Timer = System.Timers.Timer;
 
 namespace RandomGame
 {
@@ -18,6 +19,7 @@ namespace RandomGame
         }
         public static void Initialize()
         {
+            LoadEvents();
             timer = new Timer(1000);
             timer.Elapsed += Step;
             timer.Start();
@@ -25,6 +27,30 @@ namespace RandomGame
         private static void Step(object? sender, System.Timers.ElapsedEventArgs e)
         {
             save.time.PassHour();
+        }
+        private static void LoadEvents()
+        {
+            DirectoryInfo directoryInfo = new("Resources/Events/");
+            foreach (var file in directoryInfo.GetFiles())
+            {
+                try
+                {
+                    Event.FromJsonFile(file.FullName);
+                }
+                catch (Exception e)
+                {
+                    Debug.Write($"{file.Name} Event Cannot be loaded!");
+                    Debug.Write(e.Message);
+                }
+            }
+            RefreshEventAppliers();
+        }
+        public static void RefreshEventAppliers()
+        {
+            foreach (var estajho in save.GetList<Estajho>("estajho"))
+            {
+                estajho.eventApplier.RefreshEvents();
+            }
         }
     }
 }

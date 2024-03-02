@@ -37,7 +37,7 @@ namespace RandomGame
                 var estajho = ((EstajhoTreeNode)args.ActivatedObject).estajho;
                 if (estajho.id != this.id)
                 {
-                    Gui.mainView.OpenView(this, new DisplayEstajho(estajho.id));
+                    Gui.mainView.OpenView(new DisplayEstajho(estajho.id));
                 }
             };
             var backButton = new Button()

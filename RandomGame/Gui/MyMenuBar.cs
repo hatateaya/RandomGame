@@ -6,9 +6,8 @@ namespace RandomGame
     {
         public MyMenuBar()
         {
-            var eventWindowMI = new MenuItem("_Open Event Window", "", () => { Gui.mainView.OpenView(new EventWindow(Event.GetEventSample())); });
-            var sampleEventGenerateMI = new MenuItem("_Generate Sample Event", "", Event.EventUnitTest);
-            var TestMBI = new MenuBarItem("_Test", new MenuItem[] { eventWindowMI, sampleEventGenerateMI });
+            var sampleEventMI = new MenuItem("_Sample Event", "", () => { Gui.mainView.OpenView(new EventWindow(Event.GetEventSample())); });
+            var TestMBI = new MenuBarItem("_Test", new MenuItem[] { sampleEventMI });
 
             var aboutMI = new MenuItem("_About", "", ShowAbout);
             var helpMBI = new MenuBarItem("_Help", new MenuItem[] { aboutMI });

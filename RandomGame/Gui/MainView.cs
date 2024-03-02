@@ -33,12 +33,11 @@ namespace RandomGame
         }
         public void OpenView(View view)
         {
+            if (rightPane != null)
+            {
+                viewStack.Push(rightPane);
+            }
             ChangeRightPane(view);
-        }
-        public void OpenView(View from, View to)
-        {
-            viewStack.Push(from);
-            ChangeRightPane(to);
         }
         public void Back()
         {

@@ -1,4 +1,6 @@
-﻿namespace RandomGame
+﻿using System.Diagnostics;
+
+namespace RandomGame
 {
     class Save
     {
@@ -31,6 +33,7 @@
             ((List<string>)pairs[title + ".list"]).Add(Id);
             pairs.Add(Id, thing);
             pairs[title + ".count"] = (int)pairs[title + ".count"] + 1;
+            Debug.WriteLine($"{Id} registed.");
             return Id;
         }
         public void Set(string Id, object thing)
@@ -48,12 +51,12 @@
         {
             return pairs[Id];
         }
-        public List<object> GetList(string title)
+        public List<T> GetList<T>(string title)
         {
-            List<object> list = new List<object>();
+            List<T> list = [];
             foreach (string thingId in (List<string>)pairs[title + ".list"])
             {
-                list.Add(pairs[thingId]);
+                list.Add((T)pairs[thingId]);
             }
             return list;
         }

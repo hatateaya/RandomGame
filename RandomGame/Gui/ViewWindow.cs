@@ -20,7 +20,7 @@ namespace RandomGame
             tree.AddObject(new EstajhoTreeNode((Estajho)Logic.save.Get(Logic.save.playerId)));
             tree.ObjectActivated += (ObjectActivatedEventArgs<ITreeNode> args) =>
             {
-                Gui.mainView.OpenView(this, new DisplayEstajho(((EstajhoTreeNode)args.ActivatedObject).estajho.id));
+                Gui.mainView.OpenView(new DisplayEstajho(((EstajhoTreeNode)args.ActivatedObject).estajho.id));
             };
 
             Add(tree);

@@ -3,18 +3,21 @@
     class Time
     {
         public int hour = 0;
-        public int day = 0;
         public void PassHour()
         {
             EstajhoLoop();
             hour++;
+            if (hour % 24 == 0)
+            {
+                Logic.RefreshEventAppliers();
+            }
         }
         public void EstajhoLoop()
         {
-            List<object> list = Logic.save.GetList("estajho");
-            foreach (object item in list)
+            var list = Logic.save.GetList<Estajho>("estajho");
+            foreach (var item in list)
             {
-                ((Estajho)item).eventApplier.LoopOn();
+                item.eventApplier.LoopOn();
             }
         }
         public void PassHours(int hours)
@@ -26,7 +29,7 @@
         }
         public override string ToString()
         {
-            return $"Day {day}\nHour {hour}";
+            return $"Day {hour / 24}\n Hour {hour % 24}";
         }
     }
 }
