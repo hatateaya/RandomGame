@@ -1,4 +1,5 @@
-﻿using Terminal.Gui;
+﻿using System.Diagnostics;
+using Terminal.Gui;
 
 namespace RandomGame
 {
@@ -23,6 +24,15 @@ namespace RandomGame
             Application.Run();
 
             Application.Shutdown();
+        }
+        public static void OpenEventWindow(Event thisEvent)
+        {
+            mainView.OpenView(new EventWindow(thisEvent));
+        }
+        public static void DisplayMessage(string message)
+        {
+            // TODO ...
+            Debug.WriteLine($"Displayed {message}");
         }
         public static Pos AutoCenterY(View viewOuter)
         {

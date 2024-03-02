@@ -8,7 +8,7 @@
             var anothers = new List<KeyValuePair<RelationType, Estajho>>();
             foreach (String id in relationIds)
             {
-                var relation = ((Relation)Logic.save.Get(id));
+                var relation = Logic.save.Get<Relation>(id);
                 anothers.Add(new KeyValuePair<RelationType, Estajho>(relation.type, relation.GetAnother(from)));
             }
             return anothers;
@@ -35,18 +35,18 @@
             A = a;
             B = b;
             id = Logic.save.New("relation", this);
-            ((Estajho)Logic.save.Get(A)).relations.Add(id);
-            ((Estajho)Logic.save.Get(B)).relations.Add(id);
+            Logic.save.Get<Estajho>(A).relations.Add(id);
+            Logic.save.Get<Estajho>(B).relations.Add(id);
         }
         public Estajho GetAnother(string from)
         {
             if (A == from)
             {
-                return (Estajho)Logic.save.Get(B);
+                return Logic.save.Get<Estajho>(B);
             }
             else
             {
-                return (Estajho)Logic.save.Get(A);
+                return Logic.save.Get<Estajho>(A);
             }
         }
     }

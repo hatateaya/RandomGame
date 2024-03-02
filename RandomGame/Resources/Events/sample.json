@@ -1,31 +1,34 @@
 {
-  "Type": "Display",
+  "Conditions": [],
   "Interval": 24,
-  "Conditions": [
+  "Type": "Display",
+  "Factors": [
     {
-      "Type": "True",
-      "A": "A",
-      "B": "B"
+      "Type": "Static",
+      "Value": {
+        "Type": "Double",
+        "Value": 0.2
+      }
+    }
+  ],
+  "Name": "Testing Event",
+  "Description": "Description",
+  "Selections": [
+    {
+      "Conditions": [],
+      "Text": "I am the Selection",
+      "Effects": [
+        {
+          "Type": "DisplayMessage",
+          "Message": "Selection Message"
+        }
+      ]
     }
   ],
   "Effects": [
     {
       "Type": "DisplayMessage",
-      "Id": "EFFECT ID",
-      "DoubleValue": null,
-      "StringValue": null,
-      "Message": "a"
-    }
-  ],
-  "Factors": [],
-  "Id": "event.1",
-  "Name": "Testing Event",
-  "Description": "Description",
-  "Selections": [
-    {
-      "TheConditions": [],
-      "Text": "I am the Selection",
-      "Effects": []
+      "Message": "Sample Message"
     }
   ]
 }

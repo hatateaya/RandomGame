@@ -37,19 +37,18 @@ namespace RandomGame
     }
     class Event
     {
-        public EventType Type { get; set; } = EventType.Silent;
+        public string Id = "EVENT ID";
         public int Interval { get; set; } = 24;
         public List<Condition> Conditions { get; set; } = [];
-        public List<Effect> Effects { get; set; } = [];
         public List<Factor> Factors { get; set; } = [];
-        public string Id { get; set; } = "EVENT ID";
+        public EventType Type { get; set; } = EventType.Silent;
         public string Name { get; set; } = "EVENT NAME";
         public string Description { get; set; } = "EVENT DESCRIPTION";
         public List<Selection> Selections { get; set; } = new List<Selection>();
-        public Event()
+        public List<Effect> Effects { get; set; } = [];
+        public void Initialize()
         {
             Id = Logic.save.New("event", this);
-            Debug.WriteLine(Id + " registed.");
         }
         public static Event FromJsonFile(string fileName)
         {
@@ -57,7 +56,8 @@ namespace RandomGame
             JsonSerializerOptions options = new();
             options.Converters.Add(new JsonStringEnumConverter());
             Event? myEvent = JsonSerializer.Deserialize<Event>(jsonString, options);
-            return myEvent ?? throw new Exception("Deserialized object is null");
+            myEvent.Initialize();
+            return myEvent;
         }
         public bool IsFit()
         {
@@ -72,20 +72,16 @@ namespace RandomGame
         }
         public void Try()
         {
-            if (!IsFit())
+            if (IsFit())
             {
-                return;
+                Perform();
             }
-            Perform();
         }
         public void Perform()
         {
             if (Type == EventType.Display)
             {
-                foreach (Selection selection in Selections)
-                {
-                    // ...
-                }
+                Gui.OpenEventWindow(this);
             }
             foreach (Effect effect in Effects)
             {
@@ -103,21 +99,6 @@ namespace RandomGame
             string jsonString = JsonSerializer.Serialize(thisEvent, options);
             File.WriteAllText(fileName, jsonString);
         }
-        public static Event GetEventSample()
-        {
-            var sample = new Event
-            {
-                Type = EventType.Display,
-                Id = "event.1",
-                Name = "Testing Event",
-                Description = "Description",
-                Selections = new List<Selection> { { new Selection { Text = "I am the Selection" } } },
-                Conditions = new List<Condition> { { new Condition() } },
-                Effects = new List<Effect> { { new Effect { Type = EffectType.DisplayMessage, Message = "a" } } },
-            };
-            EventToJsonFile(sample, "sample-event.json");
-            return sample;
-        }
     }
     enum EventType
     {
@@ -126,12 +107,12 @@ namespace RandomGame
     }
     class Selection
     {
-        public List<Condition> TheConditions { get; set; } = [];
+        public List<Condition> Conditions { get; set; } = [];
         public string Text { get; set; } = "SELECTION TEXT";
         public List<Effect> Effects { get; set; } = [];
         public bool IsAvailable()
         {
-            foreach (Condition condition in TheConditions)
+            foreach (Condition condition in Conditions)
             {
                 if (!condition.IsTrue())
                 {
@@ -151,8 +132,6 @@ namespace RandomGame
     class Condition
     {
         public ConditionType Type { get; set; } = ConditionType.True;
-        public string A { get; set; } = "A";
-        public string B { get; set; } = "B";
         public bool IsTrue()
         {
             return Type switch
@@ -167,37 +146,38 @@ namespace RandomGame
     {
         True,
         False,
-        Equal,
-        NotEqual,
-        LargerThan,
-        SmallerThan,
     }
     class Effect
     {
         public EffectType Type { get; set; } = EffectType.DisplayMessage;
+        public string Message { get; set; } = "EFFECT MESSAGE";
+        public string SaveId { get; set; } = "SAVE ID";
         public string EventId { get; set; } = "EVENT ID";
+        public string CommandId { get; set; } = "COMMAND ID";
         public DoubleValue? DoubleValue { get; set; } = null;
         public ConditionedString? StringValue { get; set; } = null;
-        public string Message { get; set; } = "EFFECT MESSAGE";
         public void Perform()
         {
+
             switch (Type)
             {
                 case EffectType.DisplayMessage:
-                    Console.WriteLine(Message);
+                    Gui.DisplayMessage(Message);
                     break;
                 case EffectType.SaveSetD:
-                    Logic.save.Set(EventId, DoubleValue.Get());
+                    Logic.save.Set(SaveId, DoubleValue.Get());
                     break;
                 case EffectType.SaveSetS:
-                    Logic.save.Set(EventId, DoubleValue.Get());
+                    Logic.save.Set(SaveId, StringValue.Get());
                     break;
                 case EffectType.PerformCommand:
-                    Command.Perform(EventId);
+                    Command.Perform(CommandId);
                     break;
                 case EffectType.PerformEvent:
+                    Logic.save.Get<Event>(EventId).Perform();
                     break;
-                default: break;
+                default:
+                    throw new NotImplementedException();
             }
         }
     }
@@ -211,30 +191,43 @@ namespace RandomGame
     }
     class Factor
     {
-        public Condition ConditionIn { get; set; } = new Condition();
-        public DoubleValue? FactorTrue { get; set; } = null;
+        public FactorType type { get; set; } = FactorType.Static;
+        public DoubleValue Value { get; set; } = new();
+        public Condition FactorCondition { get; set; } = new Condition();
+        public DoubleValue FactorTrue { get; set; } = new();
         public DoubleValue? FactorFalse { get; set; } = null;
         public double Get()
         {
-            if (ConditionIn.IsTrue())
+            if (type == FactorType.Conditioned)
             {
-                return (double)FactorTrue.Get();
+                if (FactorCondition.IsTrue())
+                {
+                    return FactorTrue.Get();
+                }
+                else
+                {
+                    return FactorFalse.Get();
+                }
             }
             else
             {
-
-                return (double)FactorFalse.Get();
+                return Value.Get();
             }
         }
     }
+    enum FactorType
+    {
+        Static,
+        Conditioned,
+    }
     class ConditionedString
     {
-        public Condition? TheCondition { get; set; } = null;
+        public Condition? StringCondition { get; set; } = null;
         public string ValueTrue { get; set; } = "STRING TRUE";
         public string ValueFalse { get; set; } = "STRING FALSE";
         public string Get()
         {
-            if (TheCondition.IsTrue())
+            if (StringCondition.IsTrue())
             {
                 return ValueTrue;
             }
@@ -248,7 +241,7 @@ namespace RandomGame
     {
         public ValueType Type { get; set; } = ValueType.Double;
         public double Value { get; set; } = 1D;
-        public string Id { get; set; } = "";
+        public string SaveId { get; set; } = "SAVE ID";
         public DoubleValue? BasicValue { get; set; } = null;
         public Factor? TheFactor { get; set; } = null;
         public double Get()
@@ -263,7 +256,7 @@ namespace RandomGame
             }
             else if (Type == ValueType.FromSave)
             {
-                return (double)Logic.save.Get(Id);
+                return Logic.save.Get<double>(SaveId);
             }
             else
             {

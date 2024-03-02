@@ -10,7 +10,7 @@ namespace RandomGame
         {
             this.id = id;
             // as is
-            Estajho estajho = (Estajho)Logic.save.Get(id);
+            var estajho = Logic.save.Get<Estajho>(id);
             Title = "View estajho";
             var nameLabel = new Label()
             {

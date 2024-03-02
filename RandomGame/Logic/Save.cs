@@ -47,9 +47,9 @@ namespace RandomGame
                 pairs.Add(Id, thing);
             }
         }
-        public object Get(string Id)
+        public T Get<T>(string Id)
         {
-            return pairs[Id];
+            return (T)pairs[Id];
         }
         public List<T> GetList<T>(string title)
         {

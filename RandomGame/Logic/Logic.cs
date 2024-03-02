@@ -33,15 +33,7 @@ namespace RandomGame
             DirectoryInfo directoryInfo = new("Resources/Events/");
             foreach (var file in directoryInfo.GetFiles())
             {
-                try
-                {
-                    Event.FromJsonFile(file.FullName);
-                }
-                catch (Exception e)
-                {
-                    Debug.Write($"{file.Name} Event Cannot be loaded!");
-                    Debug.Write(e.Message);
-                }
+                Event.FromJsonFile(file.FullName);
             }
             RefreshEventAppliers();
         }

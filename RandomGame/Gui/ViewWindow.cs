@@ -17,7 +17,7 @@ namespace RandomGame
                 Height = Dim.Fill(2),
             };
 
-            tree.AddObject(new EstajhoTreeNode((Estajho)Logic.save.Get(Logic.save.playerId)));
+            tree.AddObject(new EstajhoTreeNode(Logic.save.Get<Estajho>(Logic.save.playerId)));
             tree.ObjectActivated += (ObjectActivatedEventArgs<ITreeNode> args) =>
             {
                 Gui.mainView.OpenView(new DisplayEstajho(((EstajhoTreeNode)args.ActivatedObject).estajho.id));
