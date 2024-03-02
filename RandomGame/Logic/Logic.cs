@@ -9,12 +9,12 @@ namespace RandomGame
         public static Timer? timer;
         public static void NewSave()
         {
-            new Save();
+            _ = new Save();
             Initialize();
         }
         public static void LoadSave(string fileName)
         {
-            new Save();
+            _ = new Save();
             Initialize();
         }
         public static void Initialize()

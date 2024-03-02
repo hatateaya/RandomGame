@@ -6,7 +6,9 @@ namespace RandomGame
 {
     class EventApplier
     {
-        Estajho estajho;
+        public EventApplierType Type { get; set; } = EventApplierType.Global;
+        public string? Id { get; set; }
+        public Estajho? estajho;
         List<Event> events;
         public void LoopOn()
         {
@@ -14,7 +16,7 @@ namespace RandomGame
             {
                 if (Tools.Lucky(1D / item.Interval))
                 {
-                    item.Try();
+                    item.Try(this);
                 }
             }
         }
@@ -23,7 +25,7 @@ namespace RandomGame
             events.Clear();
             foreach (var item in Logic.save.GetList<Event>("event"))
             {
-                if (item.IsFit())
+                if (item.IsFit(this))
                 {
                     events.Add(item);
                 }
@@ -31,13 +33,25 @@ namespace RandomGame
         }
         public EventApplier(Estajho estajho)
         {
+            Type = EventApplierType.Estajho;
             events = [];
             this.estajho = estajho;
+            Id = estajho.id;
         }
+        public EventApplier()
+        {
+            Type = EventApplierType.Global;
+            events = [];
+        }
+    }
+    enum EventApplierType
+    {
+        Global,
+        Estajho,
     }
     class Event
     {
-        public string Id = "EVENT ID";
+        public string id = "EVENT ID";
         public string Subtitle { get; set; } = "";
         public int Interval { get; set; } = 24;
         public List<Condition> Conditions { get; set; } = [];
@@ -51,13 +65,12 @@ namespace RandomGame
         {
             if (Subtitle == "")
             {
-                Id = Logic.save.New("event", this);
+                id = Logic.save.New("event", this);
             }
             else
             {
-                Id = Logic.save.New("event", Subtitle, this);
+                id = Logic.save.New("event", Subtitle, this);
             }
-
         }
         public static Event FromJsonFile(string fileName)
         {
@@ -68,7 +81,7 @@ namespace RandomGame
             myEvent.Initialize();
             return myEvent;
         }
-        public bool IsFit()
+        public bool IsFit(EventApplier applier)
         {
             foreach (Condition condition in Conditions)
             {
@@ -79,9 +92,9 @@ namespace RandomGame
             }
             return true;
         }
-        public void Try()
+        public void Try(EventApplier applier)
         {
-            if (IsFit())
+            if (IsFit(applier))
             {
                 double possibility = 1D;
                 foreach(var factor in Factors)
@@ -90,11 +103,11 @@ namespace RandomGame
                 }
                 if (Tools.Lucky(possibility))
                 {
-                    Perform();
+                    Perform(applier);
                 }
             }
         }
-        public void Perform()
+        public void Perform(EventApplier applier)
         {
             if (Type == EventType.Display)
             {
@@ -102,9 +115,9 @@ namespace RandomGame
             }
             foreach (Effect effect in Effects)
             {
-                effect.Perform();
+                effect.Perform(applier);
             }
-            Debug.WriteLine($"{Id} performed.");
+            Debug.WriteLine($"{id} performed.");
         }
         static void EventToJsonFile(Event thisEvent, string fileName)
         {
@@ -138,11 +151,11 @@ namespace RandomGame
             }
             return true;
         }
-        public void Perform()
+        public void Perform(EventApplier applier)
         {
             foreach (Effect effect in Effects)
             {
-                effect.Perform();
+                effect.Perform(applier);
             }
         }
     }
@@ -173,7 +186,7 @@ namespace RandomGame
         public string CommandId { get; set; } = "COMMAND ID";
         public DoubleValue? DoubleValue { get; set; } = null;
         public ConditionedString? StringValue { get; set; } = null;
-        public void Perform()
+        public void Perform(EventApplier applier)
         {
 
             switch (Type)
@@ -191,7 +204,7 @@ namespace RandomGame
                     Command.Perform(CommandId);
                     break;
                 case EffectType.PerformEvent:
-                    Logic.save.Get<Event>(EventId).Perform();
+                    Logic.save.Get<Event>(EventId).Perform(applier);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -208,14 +221,14 @@ namespace RandomGame
     }
     class Factor
     {
-        public FactorType type { get; set; } = FactorType.Static;
+        public FactorType Type { get; set; } = FactorType.Static;
         public DoubleValue Value { get; set; } = new();
         public Condition FactorCondition { get; set; } = new Condition();
         public DoubleValue FactorTrue { get; set; } = new();
         public DoubleValue? FactorFalse { get; set; } = null;
         public double Get()
         {
-            if (type == FactorType.Conditioned)
+            if (Type == FactorType.Conditioned)
             {
                 if (FactorCondition.IsTrue())
                 {

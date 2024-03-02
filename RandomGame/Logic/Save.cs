@@ -18,14 +18,14 @@ namespace RandomGame
             pairs.Add(".list", new List<string>());
             playerId = new Estajho(EstajhoNewMode.Player).id;
             actorId = new Estajho(EstajhoNewMode.Actor).id;
-            new Relation(RelationType.Friend, playerId, actorId);
+            _ = new Relation(RelationType.Friend, playerId, actorId);
             time = new Time();
         }
         public string New<T>(string title,string subtitle,T item)
         {
             if (item == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(item));
             }
             if (!pairs.ContainsKey(title + ".list"))
             {
