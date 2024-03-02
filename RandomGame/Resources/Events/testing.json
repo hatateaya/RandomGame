@@ -1,5 +1,5 @@
 {
-  "Subtitle": "sample",
+  "Subtitle": "testing",
   "Conditions": [],
   "Interval": 24,
   "Type": "Display",
@@ -8,7 +8,7 @@
       "Type": "Static",
       "Value": {
         "Type": "Double",
-        "Value": 0
+        "Value": 0.2
       }
     }
   ],

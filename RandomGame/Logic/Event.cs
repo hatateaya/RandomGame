@@ -38,6 +38,7 @@ namespace RandomGame
     class Event
     {
         public string Id = "EVENT ID";
+        public string Subtitle { get; set; } = "";
         public int Interval { get; set; } = 24;
         public List<Condition> Conditions { get; set; } = [];
         public List<Factor> Factors { get; set; } = [];
@@ -48,7 +49,15 @@ namespace RandomGame
         public List<Effect> Effects { get; set; } = [];
         public void Initialize()
         {
-            Id = Logic.save.New("event", this);
+            if (Subtitle == "")
+            {
+                Id = Logic.save.New("event", this);
+            }
+            else
+            {
+                Id = Logic.save.New("event", Subtitle, this);
+            }
+
         }
         public static Event FromJsonFile(string fileName)
         {

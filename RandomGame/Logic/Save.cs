@@ -21,20 +21,36 @@ namespace RandomGame
             new Relation(RelationType.Friend, playerId, actorId);
             time = new Time();
         }
-        public string New(string title, object thing)
+        public string New<T>(string title,string subtitle,T item)
         {
+            if (item == null)
+            {
+                throw new ArgumentNullException();
+            }
             if (!pairs.ContainsKey(title + ".list"))
             {
                 ((List<string>)pairs[".list"]).Add(title);
                 pairs.Add(title + ".list", new List<string>());
-                pairs.Add(title + ".count", 0);
+                if (!pairs.ContainsKey(title + ".count"))
+                {
+                    pairs.Add(title + ".count", 0);
+                }
             }
-            string Id = title + "." + ((int)pairs[title + ".count"]).ToString();
+            string Id = title + "." + subtitle;
             ((List<string>)pairs[title + ".list"]).Add(Id);
-            pairs.Add(Id, thing);
+            pairs.Add(Id, item);
             pairs[title + ".count"] = (int)pairs[title + ".count"] + 1;
             Debug.WriteLine($"{Id} registed.");
             return Id;
+        }
+        public string New<T>(string title, T item)
+        {
+            if (!pairs.ContainsKey(title + ".count"))
+            {
+                pairs.Add(title + ".count", 0);
+            }
+            string subtitle = ((int)pairs[title + ".count"]).ToString();
+            return New(title, subtitle, item); ;
         }
         public void Set(string Id, object thing)
         {
