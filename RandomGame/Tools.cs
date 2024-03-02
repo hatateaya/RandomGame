@@ -2,13 +2,13 @@
 {
     static class Tools
     {
-        public static string RandomSelect(params string[] strings)
-        {
-            return strings[Logic.save.random.Next(strings.Length)];
-        }
-        public static Object RandomSelect(params Object[] objects)
+        public static T RandomSelect<T>(params T[] objects)
         {
             return objects[Logic.save.random.Next(objects.Length)];
+        }
+        public static bool Lucky(double possibility)
+        {
+            return Logic.save.random.NextDouble() <= possibility;
         }
     }
 }

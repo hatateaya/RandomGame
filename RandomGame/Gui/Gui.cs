@@ -31,8 +31,7 @@ namespace RandomGame
         }
         public static void DisplayMessage(string message)
         {
-            // TODO ...
-            Debug.WriteLine($"Displayed {message}");
+            MessageBox.Query("Message", message, "OK");
         }
         public static Pos AutoCenterY(View viewOuter)
         {

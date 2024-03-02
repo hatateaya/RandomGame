@@ -74,7 +74,15 @@ namespace RandomGame
         {
             if (IsFit())
             {
-                Perform();
+                double possibility = 1D;
+                foreach(var factor in Factors)
+                {
+                    possibility *= factor.Get();
+                }
+                if (Tools.Lucky(possibility))
+                {
+                    Perform();
+                }
             }
         }
         public void Perform()
