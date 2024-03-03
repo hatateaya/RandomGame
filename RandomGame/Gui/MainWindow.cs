@@ -4,38 +4,22 @@ namespace RandomGame
 {
     class MainWindow : Window
     {
+        Label timeLabel;
+        Button timerButton;
         public MainWindow()
         {
             Width = Dim.Fill();
             Height = Dim.Fill();
-            var timeLabel = new Label()
+            timeLabel = new Label()
             {
-                // How to auto update?
-                Text = Logic.save.time.ToString(),
                 X = Pos.Center(),
                 Y = Gui.AutoCenterY(this),
             };
-            var timerButton = new Button()
+            timerButton = new Button()
             {
                 X = Pos.Center(),
                 Y = Pos.Bottom(timeLabel) + 2,
             };
-            if (Logic.timer.Enabled)
-            {
-                timerButton.Text = "Pause";
-                timerButton.Clicked += () =>
-                {
-                    Logic.timer.Stop();
-                };
-            }
-            else
-            {
-                timerButton.Text = "Continue";
-                timerButton.Clicked += () =>
-                {
-                    Logic.timer.Start();
-                };
-            }
             var viewButton = new Button()
             {
                 Text = "View",
@@ -47,7 +31,27 @@ namespace RandomGame
             {
                 Gui.mainView.OpenView(new ViewWindow());
             };
-            Add(timeLabel, viewButton);
+            UpdateTime();
+            Add(timeLabel, timerButton, viewButton);
+        }
+        public void UpdateTime() {
+            timeLabel.Text = Logic.save.time.ToString();
+            if (Logic.timer.Enabled)
+            {
+                timerButton.Text = "Pause";
+                timerButton.Clicked -= Logic.timer.Start;
+                timerButton.Clicked += Logic.timer.Stop;
+                timerButton.Clicked -= UpdateTime;
+                timerButton.Clicked += UpdateTime;
+            }
+            else
+            {
+                timerButton.Text = "Continue";
+                timerButton.Clicked -= Logic.timer.Stop;
+                timerButton.Clicked += Logic.timer.Start;
+                timerButton.Clicked -= UpdateTime;
+                timerButton.Clicked += UpdateTime;
+            }
         }
     }
 }

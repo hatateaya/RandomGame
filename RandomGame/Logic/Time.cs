@@ -11,6 +11,7 @@
             {
                 Logic.RefreshEventAppliers();
             }
+            (Gui.mainView.leftPane as MainWindow).UpdateTime();
         }
         public void EstajhoLoop()
         {
@@ -29,7 +30,7 @@
         }
         public override string ToString()
         {
-            return $"Day {hour / 24}\n Hour {hour % 24}";
+            return $"Day {hour / 24}\nHour {hour % 24}";
         }
     }
 }
