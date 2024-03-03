@@ -18,40 +18,47 @@ namespace RandomGame
             timerButton = new Button()
             {
                 X = Pos.Center(),
-                Y = Pos.Bottom(timeLabel) + 2,
+                Y = Pos.Bottom(timeLabel) + 1,
             };
             var viewButton = new Button()
             {
                 Text = "View",
                 X = Pos.Center(),
-                Y = Pos.Bottom(timerButton) + 1,
+                Y = Pos.Bottom(timerButton) + 2,
                 IsDefault = true,
             };
             viewButton.Clicked += () =>
             {
                 Gui.mainView.OpenView(new ViewWindow());
             };
-            UpdateTime();
-            Add(timeLabel, timerButton, viewButton);
-        }
-        public void UpdateTime() {
-            timeLabel.Text = Logic.save.time.ToString();
             if (Logic.timer.Enabled)
             {
                 timerButton.Text = "Pause";
-                timerButton.Clicked -= Logic.timer.Start;
-                timerButton.Clicked += Logic.timer.Stop;
-                timerButton.Clicked -= UpdateTime;
-                timerButton.Clicked += UpdateTime;
+                timerButton.Clicked += PauseClicked;
             }
             else
             {
                 timerButton.Text = "Continue";
-                timerButton.Clicked -= Logic.timer.Stop;
-                timerButton.Clicked += Logic.timer.Start;
-                timerButton.Clicked -= UpdateTime;
-                timerButton.Clicked += UpdateTime;
+                timerButton.Clicked += ContinueClicked;
             }
+            UpdateTime();
+            Add(timeLabel, timerButton, viewButton);
+        }
+        void ContinueClicked()
+        {
+            timerButton.Text = "Pause";
+            Logic.timer.Start();
+            Application.Refresh();
+        }
+        void PauseClicked()
+        {
+            timerButton.Text = "Continue";
+            Logic.timer.Stop();
+            Application.Refresh();
+        }
+        public void UpdateTime() {
+            timeLabel.Text = Logic.save.time.ToString();
+            Application.Refresh();
         }
     }
 }
