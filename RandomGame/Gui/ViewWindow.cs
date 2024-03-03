@@ -14,7 +14,7 @@ namespace RandomGame
                 X = 4,
                 Y = 2,
                 Width = Dim.Fill(4),
-                Height = Dim.Fill(2),
+                Height = Dim.Fill(3),
             };
 
             tree.AddObject(new EstajhoTreeNode(Logic.save.Get<Estajho>(Logic.save.playerId)));
@@ -23,7 +23,15 @@ namespace RandomGame
                 Gui.mainView.OpenView(new DisplayEstajho(((EstajhoTreeNode)args.ActivatedObject).estajho.id));
             };
 
-            Add(tree);
+            var backButton = new Button()
+            {
+                Text = "_Back",
+                X = Pos.Center(),
+                Y = Pos.AnchorEnd(2),
+            };
+            backButton.Clicked += Gui.mainView.Back;
+
+            Add(tree,backButton);
         }
     }
 }

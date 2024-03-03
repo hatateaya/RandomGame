@@ -47,12 +47,16 @@ namespace RandomGame
         void ContinueClicked()
         {
             timerButton.Text = "Pause";
+            timerButton.Clicked -= ContinueClicked;
+            timerButton.Clicked += PauseClicked;
             Logic.timer.Start();
             Application.Refresh();
         }
         void PauseClicked()
         {
             timerButton.Text = "Continue";
+            timerButton.Clicked -= PauseClicked;
+            timerButton.Clicked += ContinueClicked;
             Logic.timer.Stop();
             Application.Refresh();
         }
