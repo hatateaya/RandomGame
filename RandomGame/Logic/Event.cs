@@ -31,6 +31,10 @@ namespace RandomGame
                 }
             }
         }
+        public void DecideOnEvent(Event thisEvent)
+        {
+            // ...
+        }
         public EventApplier(Estajho estajho)
         {
             Type = EventApplierType.Estajho;
@@ -111,13 +115,20 @@ namespace RandomGame
         {
             if (Type == EventType.Display)
             {
-                Gui.OpenEventWindow(this,applier);
+                if(applier.estajho.id == Logic.save.playerId)
+                {
+                    Gui.OpenEventWindow(this, applier);
+                }
+                else
+                {
+                    applier.DecideOnEvent(this);
+                }
             }
             foreach (Effect effect in Effects)
             {
                 effect.Perform(applier);
             }
-            Debug.WriteLine($"{id} performed.");
+            Debug.WriteLine($"{id} performed on {applier.Id}");
         }
         static void EventToJsonFile(Event thisEvent, string fileName)
         {
@@ -176,8 +187,10 @@ namespace RandomGame
                 ConditionType.Or => SubConditionA.IsTrue(applier) || SubConditionB.IsTrue(applier),
                 ConditionType.Not => !SubCondition.IsTrue(applier),
                 ConditionType.HaveMensastato => applier.estajho.mensastatos.IsHave(MensastatoType),
+                ConditionType.IsPlayer => applier.Id == Logic.save.playerId,
+                ConditionType.NotPlayer => applier.Id != Logic.save.playerId,
                 _ => throw new NotImplementedException(),
-            }; ; ; ;
+            };
         }
     }
     enum ConditionType
@@ -187,6 +200,8 @@ namespace RandomGame
         And,
         Or,
         Not,
+        IsPlayer,
+        NotPlayer,
         HaveMensastato,
     }
     class Effect
