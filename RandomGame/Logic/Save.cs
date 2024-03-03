@@ -21,7 +21,7 @@ namespace RandomGame
             _ = new Relation(RelationType.Friend, playerId, actorId);
             time = new Time();
         }
-        public string New<T>(string title,string subtitle,T item)
+        public string New<T>(string title, string subtitle, T item)
         {
             if (item == null)
             {

@@ -101,7 +101,7 @@ namespace RandomGame
             if (IsFit(applier))
             {
                 double possibility = 1D;
-                foreach(var factor in Factors)
+                foreach (var factor in Factors)
                 {
                     possibility *= factor.Get(applier);
                 }
@@ -115,7 +115,7 @@ namespace RandomGame
         {
             if (Type == EventType.Display)
             {
-                if(applier.estajho.id == Logic.save.playerId)
+                if (applier.estajho.id == Logic.save.playerId)
                 {
                     Gui.OpenEventWindow(this, applier);
                 }
@@ -176,7 +176,7 @@ namespace RandomGame
         public Condition? SubCondition { get; set; } = null;
         public Condition? SubConditionA { get; set; } = null;
         public Condition? SubConditionB { get; set; } = null;
-        public MensastatoType MensastatoType { get; set; }
+        public StatoType StatoType { get; set; }
         public bool IsTrue(EventApplier applier)
         {
             return Type switch
@@ -186,7 +186,7 @@ namespace RandomGame
                 ConditionType.And => SubConditionA.IsTrue(applier) && SubConditionB.IsTrue(applier),
                 ConditionType.Or => SubConditionA.IsTrue(applier) || SubConditionB.IsTrue(applier),
                 ConditionType.Not => !SubCondition.IsTrue(applier),
-                ConditionType.HaveMensastato => applier.estajho.mensastatos.IsHave(MensastatoType),
+                ConditionType.HaveStato => applier.estajho.mensastatos.IsHave(StatoType),
                 ConditionType.IsPlayer => applier.Id == Logic.save.playerId,
                 ConditionType.NotPlayer => applier.Id != Logic.save.playerId,
                 _ => throw new NotImplementedException(),
@@ -202,7 +202,7 @@ namespace RandomGame
         Not,
         IsPlayer,
         NotPlayer,
-        HaveMensastato,
+        HaveStato,
     }
     class Effect
     {
@@ -213,7 +213,7 @@ namespace RandomGame
         public string CommandId { get; set; } = "COMMAND ID";
         public DoubleValue? DoubleValue { get; set; } = null;
         public ConditionedString? StringValue { get; set; } = null;
-        public MensastatoType MensastatoType { get; set; }
+        public StatoType StatoType { get; set; }
         public void Perform(EventApplier applier)
         {
             switch (Type)
@@ -233,11 +233,11 @@ namespace RandomGame
                 case EffectType.PerformEvent:
                     Logic.save.Get<Event>(EventId).Perform(applier);
                     break;
-                case EffectType.AddMensastato:
-                    applier.estajho.mensastatos.Add(MensastatoType);
+                case EffectType.AddStato:
+                    applier.estajho.mensastatos.Add(StatoType);
                     break;
-                case EffectType.RemoveMensastato:
-                    applier.estajho.mensastatos.Remove(MensastatoType);
+                case EffectType.RemoveStato:
+                    applier.estajho.mensastatos.Remove(StatoType);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -248,8 +248,8 @@ namespace RandomGame
     {
         SaveSetD,
         SaveSetS,
-        AddMensastato,
-        RemoveMensastato,
+        AddStato,
+        RemoveStato,
         DisplayMessage,
         PerformEvent,
         PerformCommand,

@@ -31,7 +31,7 @@ namespace RandomGame
             };
             backButton.Clicked += Gui.mainView.Back;
 
-            Add(tree,backButton);
+            Add(tree, backButton);
         }
     }
 }

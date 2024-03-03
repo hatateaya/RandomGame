@@ -6,7 +6,7 @@
         public string name;
         public Gender gender;
         public EventApplier eventApplier;
-        public Mensastatos mensastatos;
+        public Statos mensastatos;
         public Realitys realitys;
         public Relations relations;
         public Estajho(EstajhoNewMode estajhoNewMode)
@@ -15,7 +15,7 @@
             gender = GenerateGender(estajhoNewMode);
             name = GenerateName(gender);
             realitys = new Realitys();
-            mensastatos = new Mensastatos(estajhoNewMode, gender, realitys);
+            mensastatos = new Statos(estajhoNewMode, gender, realitys);
             relations = new Relations();
             if (estajhoNewMode != EstajhoNewMode.Parent)
             {

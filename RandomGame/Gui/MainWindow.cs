@@ -60,7 +60,8 @@ namespace RandomGame
             Logic.timer.Stop();
             Application.Refresh();
         }
-        public void UpdateTime() {
+        public void UpdateTime()
+        {
             timeLabel.Text = Logic.save.time.ToString();
             Application.Refresh();
         }

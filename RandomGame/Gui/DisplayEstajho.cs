@@ -9,12 +9,11 @@ namespace RandomGame
         public DisplayEstajho(string id)
         {
             this.id = id;
-            // as is
             var estajho = Logic.save.Get<Estajho>(id);
-            Title = "View estajho";
+            Title = "View Estajho";
             var nameLabel = new Label()
             {
-                Text = "Name: " + estajho.name,
+                Text = ": " + estajho.name,
                 X = Pos.Center() - 12,
                 Y = Gui.AutoCenterY(this),
             };

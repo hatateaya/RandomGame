@@ -1,13 +1,13 @@
 ﻿namespace RandomGame
 {
-    class Mensastatos
+    class Statos
     {
-        public List<Mensastato> list;
-        public Mensastatos(EstajhoNewMode newMode, Gender gender, Realitys realitys)
+        public List<Stato> list;
+        public Statos(EstajhoNewMode newMode, Gender gender, Realitys realitys)
         {
-            list = new List<Mensastato>();
+            list = new List<Stato>();
 
-            Dictionary<MensastatoType, double> generateFactors = [];
+            Dictionary<StatoType, double> generateFactors = [];
 
             switch (newMode)
             {
@@ -29,18 +29,18 @@
                     break;
             };
 
-            foreach (MensastatoType key in generateFactors.Keys)
+            foreach (StatoType key in generateFactors.Keys)
             {
                 var random = new Random(Logic.save.seed);
                 if (random.NextDouble() <= generateFactors[key])
                 {
-                    list.Add(new Mensastato(key));
+                    list.Add(new Stato(key));
                 }
             }
         }
-        public bool IsHave(MensastatoType type)
+        public bool IsHave(StatoType type)
         {
-            foreach(Mensastato item in list)
+            foreach (Stato item in list)
             {
                 if (item.Type == type)
                 {
@@ -49,16 +49,16 @@
             }
             return false;
         }
-        public void Add(MensastatoType type)
+        public void Add(StatoType type)
         {
             if (!IsHave(type))
             {
-                list.Add(new Mensastato(type));
+                list.Add(new Stato(type));
             }
-        } 
-        public void Remove(MensastatoType type)
+        }
+        public void Remove(StatoType type)
         {
-            foreach(Mensastato mensastato in list)
+            foreach (Stato mensastato in list)
             {
                 if (mensastato.Type == type)
                 {
@@ -68,17 +68,17 @@
             }
         }
     }
-    class Mensastato
+    class Stato
     {
-        public MensastatoType Type { get; set; }
+        public StatoType Type { get; set; }
         double Value { get; set; }
-        public Mensastato(MensastatoType mensasatoType)
+        public Stato(StatoType mensasatoType)
         {
             Type = mensasatoType;
             Value = new Random(Logic.save.seed).NextDouble();
         }
     }
-    enum MensastatoType
+    enum StatoType
     {
         Overdose,
         NSSI,

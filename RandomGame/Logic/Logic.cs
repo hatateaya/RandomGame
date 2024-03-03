@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Timer = System.Timers.Timer;
+﻿using Timer = System.Timers.Timer;
 
 namespace RandomGame
 {

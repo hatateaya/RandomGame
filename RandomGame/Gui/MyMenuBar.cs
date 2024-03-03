@@ -6,7 +6,7 @@ namespace RandomGame
     {
         public MyMenuBar()
         {
-            var TestMBI = new MenuBarItem("_Test", new MenuItem[] {  });
+            var TestMBI = new MenuBarItem("_Test", new MenuItem[] { });
 
             var aboutMI = new MenuItem("_About", "", ShowAbout);
             var helpMBI = new MenuBarItem("_Help", new MenuItem[] { aboutMI });

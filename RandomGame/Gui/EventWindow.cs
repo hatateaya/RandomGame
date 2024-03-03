@@ -4,7 +4,7 @@ namespace RandomGame
 {
     class EventWindow : Window
     {
-        public EventWindow(Event theEvent,EventApplier applier)
+        public EventWindow(Event theEvent, EventApplier applier)
         {
             Title = "Event";
             var nameLabel = new Label()

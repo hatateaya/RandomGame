@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Terminal.Gui;
+﻿using Terminal.Gui;
 
 namespace RandomGame
 {
@@ -27,7 +26,7 @@ namespace RandomGame
         }
         public static void OpenEventWindow(Event thisEvent, EventApplier applier)
         {
-            mainView.OpenView(new EventWindow(thisEvent, applier)) ;
+            mainView.OpenView(new EventWindow(thisEvent, applier));
         }
         public static void DisplayMessage(string message)
         {
