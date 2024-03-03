@@ -80,6 +80,9 @@
     }
     enum StatoType
     {
+        Depressed,
+        Exhilarated,
+        // Mensastatoj
         Overdose,
         NSSI,
         GD,
@@ -103,5 +106,4 @@
         M,
         CD,
     }
-    // maybe ICD-11?
 }
