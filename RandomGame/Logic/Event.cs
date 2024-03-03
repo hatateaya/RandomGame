@@ -85,7 +85,7 @@ namespace RandomGame
         {
             foreach (Condition condition in Conditions)
             {
-                if (!condition.IsTrue())
+                if (!condition.IsTrue(applier))
                 {
                     return false;
                 }
@@ -99,7 +99,7 @@ namespace RandomGame
                 double possibility = 1D;
                 foreach(var factor in Factors)
                 {
-                    possibility *= factor.Get();
+                    possibility *= factor.Get(applier);
                 }
                 if (Tools.Lucky(possibility))
                 {
@@ -111,7 +111,7 @@ namespace RandomGame
         {
             if (Type == EventType.Display)
             {
-                Gui.OpenEventWindow(this);
+                Gui.OpenEventWindow(this,applier);
             }
             foreach (Effect effect in Effects)
             {
@@ -140,11 +140,11 @@ namespace RandomGame
         public List<Condition> Conditions { get; set; } = [];
         public string Text { get; set; } = "SELECTION TEXT";
         public List<Effect> Effects { get; set; } = [];
-        public bool IsAvailable()
+        public bool IsAvailable(EventApplier applier)
         {
             foreach (Condition condition in Conditions)
             {
-                if (!condition.IsTrue())
+                if (!condition.IsTrue(applier))
                 {
                     return false;
                 }
@@ -162,20 +162,32 @@ namespace RandomGame
     class Condition
     {
         public ConditionType Type { get; set; } = ConditionType.True;
-        public bool IsTrue()
+        public Condition? SubCondition { get; set; } = null;
+        public Condition? SubConditionA { get; set; } = null;
+        public Condition? SubConditionB { get; set; } = null;
+        public MensastatoType MensastatoType { get; set; }
+        public bool IsTrue(EventApplier applier)
         {
             return Type switch
             {
                 ConditionType.True => true,
                 ConditionType.False => false,
+                ConditionType.And => SubConditionA.IsTrue(applier) && SubConditionB.IsTrue(applier),
+                ConditionType.Or => SubConditionA.IsTrue(applier) || SubConditionB.IsTrue(applier),
+                ConditionType.Not => !SubCondition.IsTrue(applier),
+                ConditionType.HaveMensastato => applier.estajho.mensastatos.IsHave(MensastatoType),
                 _ => throw new NotImplementedException(),
-            };
+            }; ; ; ;
         }
     }
     enum ConditionType
     {
         True,
         False,
+        And,
+        Or,
+        Not,
+        HaveMensastato,
     }
     class Effect
     {
@@ -186,25 +198,31 @@ namespace RandomGame
         public string CommandId { get; set; } = "COMMAND ID";
         public DoubleValue? DoubleValue { get; set; } = null;
         public ConditionedString? StringValue { get; set; } = null;
+        public MensastatoType MensastatoType { get; set; }
         public void Perform(EventApplier applier)
         {
-
             switch (Type)
             {
                 case EffectType.DisplayMessage:
                     Gui.DisplayMessage(Message);
                     break;
                 case EffectType.SaveSetD:
-                    Logic.save.Set(SaveId, DoubleValue.Get());
+                    Logic.save.Set(SaveId, DoubleValue.Get(applier));
                     break;
                 case EffectType.SaveSetS:
-                    Logic.save.Set(SaveId, StringValue.Get());
+                    Logic.save.Set(SaveId, StringValue.Get(applier));
                     break;
                 case EffectType.PerformCommand:
                     Command.Perform(CommandId);
                     break;
                 case EffectType.PerformEvent:
                     Logic.save.Get<Event>(EventId).Perform(applier);
+                    break;
+                case EffectType.AddMensastato:
+                    applier.estajho.mensastatos.Add(MensastatoType);
+                    break;
+                case EffectType.RemoveMensastato:
+                    applier.estajho.mensastatos.Remove(MensastatoType);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -215,6 +233,8 @@ namespace RandomGame
     {
         SaveSetD,
         SaveSetS,
+        AddMensastato,
+        RemoveMensastato,
         DisplayMessage,
         PerformEvent,
         PerformCommand,
@@ -226,22 +246,22 @@ namespace RandomGame
         public Condition FactorCondition { get; set; } = new Condition();
         public DoubleValue FactorTrue { get; set; } = new();
         public DoubleValue? FactorFalse { get; set; } = null;
-        public double Get()
+        public double Get(EventApplier applier)
         {
             if (Type == FactorType.Conditioned)
             {
-                if (FactorCondition.IsTrue())
+                if (FactorCondition.IsTrue(applier))
                 {
-                    return FactorTrue.Get();
+                    return FactorTrue.Get(applier);
                 }
                 else
                 {
-                    return FactorFalse.Get();
+                    return FactorFalse.Get(applier);
                 }
             }
             else
             {
-                return Value.Get();
+                return Value.Get(applier);
             }
         }
     }
@@ -255,9 +275,9 @@ namespace RandomGame
         public Condition? StringCondition { get; set; } = null;
         public string ValueTrue { get; set; } = "STRING TRUE";
         public string ValueFalse { get; set; } = "STRING FALSE";
-        public string Get()
+        public string Get(EventApplier applier)
         {
-            if (StringCondition.IsTrue())
+            if (StringCondition.IsTrue(applier))
             {
                 return ValueTrue;
             }
@@ -274,11 +294,11 @@ namespace RandomGame
         public string SaveId { get; set; } = "SAVE ID";
         public DoubleValue? BasicValue { get; set; } = null;
         public Factor? TheFactor { get; set; } = null;
-        public double Get()
+        public double Get(EventApplier applier)
         {
             if (Type == ValueType.FactoredValue)
             {
-                return (double)BasicValue.Get() * TheFactor.Get();
+                return (double)BasicValue.Get(applier) * TheFactor.Get(applier);
             }
             else if (Type == ValueType.Double)
             {

@@ -25,9 +25,9 @@ namespace RandomGame
 
             Application.Shutdown();
         }
-        public static void OpenEventWindow(Event thisEvent)
+        public static void OpenEventWindow(Event thisEvent, EventApplier applier)
         {
-            mainView.OpenView(new EventWindow(thisEvent));
+            mainView.OpenView(new EventWindow(thisEvent, applier)) ;
         }
         public static void DisplayMessage(string message)
         {

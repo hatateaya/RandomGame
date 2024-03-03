@@ -38,11 +38,45 @@
                 }
             }
         }
+        public bool IsHave(MensastatoType type)
+        {
+            foreach(Mensastato item in list)
+            {
+                if (item.Type == type)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void Add(MensastatoType type)
+        {
+            if (!IsHave(type))
+            {
+                list.Add(new Mensastato(type));
+            }
+        } 
+        public void Remove(MensastatoType type)
+        {
+            foreach(Mensastato mensastato in list)
+            {
+                if (mensastato.Type == type)
+                {
+                    list.Remove(mensastato);
+                    return;
+                }
+            }
+        }
     }
-    class Mensastato(MensastatoType mensasatoType)
+    class Mensastato
     {
-        MensastatoType Type = mensasatoType;
-        double Value = new Random(Logic.save.seed).NextDouble();
+        public MensastatoType Type { get; set; }
+        double Value { get; set; }
+        public Mensastato(MensastatoType mensasatoType)
+        {
+            Type = mensasatoType;
+            Value = new Random(Logic.save.seed).NextDouble();
+        }
     }
     enum MensastatoType
     {

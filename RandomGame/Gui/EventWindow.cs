@@ -4,7 +4,7 @@ namespace RandomGame
 {
     class EventWindow : Window
     {
-        public EventWindow(Event theEvent)
+        public EventWindow(Event theEvent,EventApplier applier)
         {
             Title = "Event";
             var nameLabel = new Label()
@@ -29,7 +29,7 @@ namespace RandomGame
                     X = Pos.Center(),
                     Y = Pos.Bottom(prevView) + 1,
                 };
-                selectionButton.Clicked += () => { selection.Perform(); Gui.mainView.Back(); };
+                selectionButton.Clicked += () => { selection.Perform(applier); Gui.mainView.Back(); };
                 prevView = selectionButton;
                 Add(selectionButton);
             }
