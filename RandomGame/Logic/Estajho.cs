@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace RandomGame
+﻿namespace RandomGame
 {
     class Estajho
     {
@@ -52,7 +50,7 @@ namespace RandomGame
                 _ => (Tools.RandomSelect(femaleNames.Union<string>(maleNames).ToArray<string>())),
             };
         }
-        void StatoInitialize(EstajhoNewMode estajhoNewMode,Gender gender)
+        void StatoInitialize(EstajhoNewMode estajhoNewMode, Gender gender)
         {
             Dictionary<StatoType, double> generateFactors = [];
             switch (estajhoNewMode)
