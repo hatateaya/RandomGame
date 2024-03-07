@@ -5,7 +5,7 @@
   "Type": "Display",
   "Factors": [
     {
-      "Type": "Static",
+      "Type": "Double",
       "Value": {
         "Type": "Double",
         "Value": 0
