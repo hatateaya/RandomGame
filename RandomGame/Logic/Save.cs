@@ -21,46 +21,44 @@ namespace RandomGame
             _ = new Relation(RelationType.Friend, playerId, actorId);
             time = new Time();
         }
-        public string New<T>(string title, string subtitle, T item)
-        {
-            if (item == null)
-            {
-                throw new ArgumentNullException(nameof(item));
-            }
-            if (!pairs.ContainsKey(title + ".list"))
-            {
-                ((List<string>)pairs[".list"]).Add(title);
-                pairs.Add(title + ".list", new List<string>());
-                if (!pairs.ContainsKey(title + ".count"))
-                {
-                    pairs.Add(title + ".count", 0);
-                }
-            }
-            string Id = title + "." + subtitle;
-            ((List<string>)pairs[title + ".list"]).Add(Id);
-            pairs.Add(Id, item);
-            pairs[title + ".count"] = (int)pairs[title + ".count"] + 1;
-            Debug.WriteLine($"{Id} registed.");
-            return Id;
-        }
-        public string New<T>(string title, T item)
+        private void CheckList(string title)
         {
             if (!pairs.ContainsKey(title + ".count"))
             {
                 pairs.Add(title + ".count", 0);
             }
-            string subtitle = ((int)pairs[title + ".count"]).ToString();
-            return New(title, subtitle, item); ;
-        }
-        public void Set(string Id, object thing)
-        {
-            if (!pairs.ContainsKey(Id))
+            if (!pairs.ContainsKey(title + ".list"))
             {
-                New(Id.Split('.')[0], thing);
+                ((List<string>)pairs[".list"]).Add(title);
+                pairs.Add(title + ".list", new List<string>());
+            }
+        }
+        public string New(string title, object item)
+        {
+            ArgumentNullException.ThrowIfNull(item);
+            CheckList(title);
+            string id = title + "." + ((int)pairs[title + ".count"]).ToString();
+            ((List<string>)pairs[title + ".list"]).Add(id);
+            pairs.Add(id, item);
+            pairs[title + ".count"] = (int)pairs[title + ".count"] + 1;
+            Debug.WriteLine($"{id} registed.");
+            return id;
+        }
+        public void Set(string id, object item)
+        {
+            ArgumentNullException.ThrowIfNull(item);
+            if (!pairs.ContainsKey(id))
+            {
+                string title = id.Split('.')[0];
+                CheckList(title);
+                ((List<string>)pairs[title + ".list"]).Add(id);
+                pairs.Add(id, item);
+                Debug.WriteLine($"{id} registed.");
             }
             else
             {
-                pairs.Add(Id, thing);
+                pairs.Add(id, item);
+                Debug.WriteLine($"{id} setted.");
             }
         }
         public T Get<T>(string Id)

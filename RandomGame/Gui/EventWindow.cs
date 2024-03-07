@@ -9,23 +9,23 @@ namespace RandomGame
             Title = "Event";
             var nameLabel = new Label()
             {
-                Text = theEvent.Name,
+                Text = theEvent.name,
                 X = Pos.Center(),
                 Y = Gui.AutoCenterY(this),
             };
             var descriptionLabel = new Label()
             {
-                Text = theEvent.Description,
+                Text = theEvent.description,
                 X = Pos.Center(),
                 Y = Pos.Bottom(nameLabel) + 1,
             };
             Add(nameLabel, descriptionLabel);
             View prevView = descriptionLabel;
-            foreach (Selection selection in theEvent.Selections)
+            foreach (Selection selection in theEvent.selections)
             {
                 var selectionButton = new Button()
                 {
-                    Text = selection.Text,
+                    Text = selection.text,
                     X = Pos.Center(),
                     Y = Pos.Bottom(prevView) + 1,
                 };

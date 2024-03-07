@@ -1,4 +1,6 @@
-﻿namespace RandomGame
+﻿using System.Collections.Generic;
+
+namespace RandomGame
 {
     class Estajho
     {
@@ -6,16 +8,15 @@
         public string name;
         public Gender gender;
         public EventApplier eventApplier;
-        public Statos mensastatos;
-        public Realitys realitys;
+        public Dictionary<StatoType, Stato> statos;
         public Relations relations;
         public Estajho(EstajhoNewMode estajhoNewMode)
         {
             id = Logic.save.New("estajho", this);
             gender = GenerateGender(estajhoNewMode);
             name = GenerateName(gender);
-            realitys = new Realitys();
-            mensastatos = new Statos(estajhoNewMode, gender, realitys);
+            statos = [];
+            StatoInitialize(estajhoNewMode, gender);
             relations = new Relations();
             if (estajhoNewMode != EstajhoNewMode.Parent)
             {
@@ -50,6 +51,36 @@
                 Gender.Female or Gender.Mtf => (Tools.RandomSelect(femaleNames)),
                 _ => (Tools.RandomSelect(femaleNames.Union<string>(maleNames).ToArray<string>())),
             };
+        }
+        void StatoInitialize(EstajhoNewMode estajhoNewMode,Gender gender)
+        {
+            Dictionary<StatoType, double> generateFactors = [];
+            switch (estajhoNewMode)
+            {
+                case EstajhoNewMode.Player:
+                    break;
+                case EstajhoNewMode.Actor:
+                    break;
+                case EstajhoNewMode.MTF:
+                    break;
+                case EstajhoNewMode.Abby:
+                    break;
+                case EstajhoNewMode.Parent:
+                    break;
+                case EstajhoNewMode.Classmate:
+                    break;
+                case EstajhoNewMode.Dilei:
+                    break;
+                default:
+                    break;
+            };
+            foreach (StatoType key in generateFactors.Keys)
+            {
+                if (Tools.Lucky(generateFactors[key]))
+                {
+                    statos[key] = new Stato(key);
+                }
+            }
         }
     }
     enum Gender

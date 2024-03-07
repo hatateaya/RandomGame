@@ -6,6 +6,7 @@ namespace RandomGame
     {
         public static Save? save;
         public static Timer? timer;
+        public static List<Event>? events;
         public static void NewSave()
         {
             _ = new Save();
@@ -27,21 +28,16 @@ namespace RandomGame
         {
             save.time.PassHour();
         }
-        private static void LoadEvents()
-        {
-            DirectoryInfo directoryInfo = new("Resources/Events/");
-            foreach (var file in directoryInfo.GetFiles())
-            {
-                Event.FromJsonFile(file.FullName);
-            }
-            RefreshEventAppliers();
-        }
         public static void RefreshEventAppliers()
         {
             foreach (var estajho in save.GetList<Estajho>("estajho"))
             {
                 estajho.eventApplier.RefreshEvents();
             }
+        }
+        private static void LoadEvents()
+        {
+            events = [];
         }
     }
 }

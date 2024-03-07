@@ -17,24 +17,20 @@
 
   <ItemGroup>
     <None Remove="RandomGame.exe" />
-    <None Remove="Resources\Events\sample.json" />
-    <None Remove="Resources\Events\testing.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="RandomGame.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Events\testing.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Events\sample.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Terminal.Gui" Version="1.15.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Event\" />
   </ItemGroup>
 
 </Project>
