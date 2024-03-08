@@ -26,3 +26,14 @@
         String,
     }
 }
+
+/*
+HaveMentalillness B
+Bipolar D
+Depression D
+ASD D
+ADHD D
+
+Gender S
+Female Male Mtf Ftx
+*/
