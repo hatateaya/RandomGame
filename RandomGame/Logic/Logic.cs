@@ -1,4 +1,5 @@
 ﻿using Timer = System.Timers.Timer;
+using RandomGame.Events;
 
 namespace RandomGame
 {
@@ -26,7 +27,7 @@ namespace RandomGame
         }
         private static void Step(object? sender, System.Timers.ElapsedEventArgs e)
         {
-            save.time.PassHour();
+            save.time.Step();
         }
         public static void RefreshEventAppliers()
         {

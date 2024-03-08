@@ -6,7 +6,7 @@ namespace RandomGame
     {
         public EventApplierType Type;
         public Estajho? estajho;
-        public string objectId;
+        public string owner;
         List<Event> events;
         public void LoopOn()
         {
@@ -31,12 +31,12 @@ namespace RandomGame
             Type = EventApplierType.Estajho;
             events = [];
             this.estajho = estajho;
-            objectId = estajho.id;
+            owner = estajho.id;
         }
         public EventApplier()
         {
             Type = EventApplierType.Global;
-            objectId = "global";
+            owner = "global";
             events = [];
         }
     }
@@ -65,7 +65,7 @@ namespace RandomGame
         }
         public void Perform(EventApplier applier)
         {
-            if (!isSilent && applier.estajho.id == Logic.save.playerId)
+            if (!isSilent && applier.estajho.id == Logic.save.Get<string>("global.player"))
             {
                 Gui.OpenEventWindow(this, applier);
             }
@@ -74,7 +74,7 @@ namespace RandomGame
                 SelectionsAutoDecide(applier);
             }
             PerformEffects(applier);
-            Debug.WriteLine($"{id} performed on {applier.objectId}");
+            Debug.WriteLine($"{id} performed on {applier.owner}");
         }
     }
     abstract class Selection

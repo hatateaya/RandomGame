@@ -5,8 +5,6 @@ namespace RandomGame
     class Save
     {
         public Dictionary<string, object> pairs = [];
-        public string playerId;
-        public string actorId;
         public Time time;
         public int seed;
         public Random random;
@@ -16,10 +14,12 @@ namespace RandomGame
             seed = new Random().Next(int.MaxValue);
             random = new Random(seed);
             pairs.Add(".list", new List<string>());
-            playerId = new Estajho(EstajhoNewMode.Player).id;
-            actorId = new Estajho(EstajhoNewMode.Actor).id;
-            _ = new Relation(RelationType.Friend, playerId, actorId);
             time = new Time();
+            Set("global.time", time);
+            Set("global.seed", seed);
+            Set("global.playerId", new Estajho(EstajhoNewMode.Player).id);
+            Set("global.actor", new Estajho(EstajhoNewMode.Actor).id);
+            _ = new Relation(RelationType.Friend, Get<string>("global.player"), Get<string>("global.actor"));
         }
         private void CheckList(string title)
         {

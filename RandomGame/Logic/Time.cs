@@ -2,8 +2,8 @@
 {
     class Time
     {
-        public int hour = 0;
-        public void PassHour()
+        public int hour { get; set; }=0;
+        public void Step()
         {
             EstajhoLoop();
             hour++;
@@ -19,13 +19,6 @@
             foreach (var item in list)
             {
                 item.eventApplier.LoopOn();
-            }
-        }
-        public void PassHours(int hours)
-        {
-            for (int i = 0; i < hours; i++)
-            {
-                PassHour();
             }
         }
         public override string ToString()

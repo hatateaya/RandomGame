@@ -1,31 +1,9 @@
 ﻿namespace RandomGame
 {
-    class Relations
-    {
-        public List<string> relationIds;
-        public List<KeyValuePair<RelationType, Estajho>> GetAnothers(string from)
-        {
-            var anothers = new List<KeyValuePair<RelationType, Estajho>>();
-            foreach (String id in relationIds)
-            {
-                var relation = Logic.save.Get<Relation>(id);
-                anothers.Add(new KeyValuePair<RelationType, Estajho>(relation.type, relation.GetAnother(from)));
-            }
-            return anothers;
-        }
-        public void Add(string id)
-        {
-            relationIds.Add(id);
-        }
-        public Relations()
-        {
-            relationIds = new List<string>();
-        }
-    }
     class Relation
     {
-        public RelationType type;
-        public string id;
+        public RelationType type { get; set; }
+        public string id { get; set; }
         public string A { get; set; }
         public string B { get; set; }
         public Relation(RelationType type, string a, string b)
