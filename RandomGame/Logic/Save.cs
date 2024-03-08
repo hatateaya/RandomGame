@@ -17,9 +17,7 @@ namespace RandomGame
             time = new Time();
             Set("global.time", time);
             Set("global.seed", seed);
-            Set("global.playerId", new Estajho(EstajhoNewMode.Player).id);
-            Set("global.actor", new Estajho(EstajhoNewMode.Actor).id);
-            _ = new Relation(RelationType.Friend, Get<string>("global.player"), Get<string>("global.actor"));
+            Set("global.player", new Estajho(EstajhoNewMode.Player).id);
         }
         private void CheckList(string title)
         {
@@ -49,7 +47,7 @@ namespace RandomGame
             ArgumentNullException.ThrowIfNull(item);
             if (!pairs.ContainsKey(id))
             {
-                string title = id.Split('.')[0];
+                string title = id.Split('.')[id.Split('.').Count()-1];
                 CheckList(title);
                 ((List<string>)pairs[title + ".list"]).Add(id);
                 pairs.Add(id, item);

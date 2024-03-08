@@ -15,6 +15,14 @@
             statos = [];
             relations = [];
             eventApplier = new EventApplier(this);
+            switch (estajhoNewMode)
+            {
+                case EstajhoNewMode.Player:
+                    _ = new Relation(RelationType.Friend, id, new Estajho(EstajhoNewMode.Actor).id);
+                    _ = new Relation(RelationType.Parent, id, new Estajho(EstajhoNewMode.Parent).id);
+                    _ = new Relation(RelationType.Parent, id, new Estajho(EstajhoNewMode.Parent).id);
+                    break;
+            }
         }
         string GenerateName()
         {
@@ -27,14 +35,10 @@
     {
         Player,
         Actor,
-        MTF,
-        Abby,
         Parent,
         Classmate,
-        Dilei,
+        T,
+        MDT,
         MD,
-        RandomNormal,
-        RandomYINANS,
-        Random,
     }
 }
